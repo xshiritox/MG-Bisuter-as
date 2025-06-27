@@ -80,7 +80,7 @@ onMounted(() => {
       <div class="map-header">
         <h2 class="section-title">Ubicación</h2>
         <p class="section-subtitle">
-          Encuéntranos en Puerto Padre para tu consulta personalizada
+          Encuéntrame en Puerto Padre para tu consulta personalizada
         </p>
       </div>
 

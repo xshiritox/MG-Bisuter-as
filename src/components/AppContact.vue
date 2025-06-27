@@ -15,10 +15,7 @@ const openWhatsApp = () => {
   <section id="contacto" class="contact">
     <div class="contact-container">
       <div class="contact-header">
-        <h2 class="section-title">Contáctanos</h2>
-        <p class="section-subtitle">
-          Estamos aquí para ayudarte a crear la pieza perfecta para ti
-        </p>
+        <h2 class="section-title">Contáctame</h2>
       </div>
 
       <div class="contact-content">
@@ -27,7 +24,7 @@ const openWhatsApp = () => {
           <div class="info-card">
             <div class="info-header">
               <h3>Información de Contacto</h3>
-              <p>Conecta con nosotros para tu pedido personalizado</p>
+              <p>Contáctame para tu pedido personalizado</p>
             </div>
 
             <div class="contact-methods">
@@ -38,7 +35,7 @@ const openWhatsApp = () => {
                 <div class="method-info">
                   <h4>Teléfono</h4>
                   <p>+53 55466420</p>
-                  <span class="method-note">Lun - Sáb: 9:00 AM - 10:00 PM</span>
+                  <span class="method-note">Lun - Vier: 9:00 AM - 10:00 PM</span>
                 </div>
               </div>
 
@@ -75,11 +72,6 @@ const openWhatsApp = () => {
                 </div>
               </div>
             </div>
-
-            <button @click="openWhatsApp" class="whatsapp-btn">
-              <MessageCircle class="btn-icon" />
-              Escribir por WhatsApp
-            </button>
           </div>
         </div>
       </div>
@@ -119,21 +111,22 @@ const openWhatsApp = () => {
 }
 
 .contact-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+  display: flex;
+  justify-content: center;
   margin-bottom: 4rem;
+  width: 100%;
 }
 
-.info-card, .form-card {
-  background: white;
+.info-card {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .info-header {
   margin-bottom: 2rem;
+  text-align: center;
 }
 
 .info-header h3 {
@@ -148,47 +141,54 @@ const openWhatsApp = () => {
 }
 
 .contact-methods {
-  margin-bottom: 2rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin: 0 auto;
+  max-width: 900px;
+  width: 100%;
 }
 
 .contact-method {
   display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid #f3f4f6;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.contact-method:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-  padding-bottom: 0;
+.contact-method:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .method-icon {
-  width: 3rem;
-  height: 3rem;
-  background: linear-gradient(135deg, #8B5CF6, #A855F7);
-  border-radius: 0.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #8B5CF6;
   color: white;
   flex-shrink: 0;
+  margin-bottom: 1rem;
 }
 
 .method-info h4 {
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 0.25rem;
+  color: #1F2937;
+  margin-bottom: 0.5rem;
 }
 
 .method-info p {
   color: #4b5563;
   margin-bottom: 0.25rem;
-  line-height: 1.5;
 }
 
 .method-note {
@@ -341,22 +341,22 @@ const openWhatsApp = () => {
 }
 
 @media (max-width: 768px) {
-  .contact-content {
+  .contact-methods {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    max-width: 400px;
   }
-
-  .form-row {
-    grid-template-columns: 1fr;
+  
+  .contact-method {
+    flex-direction: row;
+    text-align: left;
+    align-items: center;
   }
-
-  .additional-info {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-
-  .section-title {
-    font-size: 2rem;
+  
+  .method-icon {
+    margin-bottom: 0;
+    margin-right: 1rem;
+    width: 48px;
+    height: 48px;
   }
 }
 

@@ -107,9 +107,9 @@ const closeProductModal = () => {
   <section id="galeria" class="gallery">
     <div class="gallery-container">
       <div class="gallery-header">
-        <h2 class="section-title">Nuestra Galería</h2>
+        <h2 class="section-title">Catálogo</h2>
         <p class="section-subtitle">
-          Descubre nuestra colección de accesorios únicos y personalizados
+          Descubre mi colección de accesorios únicos y personalizados
         </p>
       </div>
 
