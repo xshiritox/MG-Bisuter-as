@@ -1,36 +1,40 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import VueDevTools from 'vite-plugin-vue-devtools'
 
 export default defineConfig({
-  plugins: [
-    vue(),
-    VueDevTools(),
-  ],
+  plugins: [vue()],
   base: '/',
   server: {
     port: 3000,
-    strictPort: true,
-    open: true,
-    host: true,
+    host: '0.0.0.0',
+    strictPort: false,
+    open: false,
+    cors: true,
     fs: {
-      strict: false
+      strict: false,
+      allow: ['..']
     }
   },
-  publicDir: 'public',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
     emptyOutDir: true,
+    sourcemap: false,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vue': ['vue']
-        }
+        manualChunks: undefined
       }
     }
   },
+  resolve: {
+    alias: {
+      '@': '/src'
+    }
+  },
   optimizeDeps: {
-    include: ['vue']
+    include: ['vue', 'leaflet', 'lucide-vue-next', '@vueuse/core']
+  },
+  esbuild: {
+    target: 'es2020'
   }
 })
