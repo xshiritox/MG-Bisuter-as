@@ -48,8 +48,12 @@ const scrollToContact = () => {
       <div class="hero-visual">
         <div class="hero-card">
           <div class="card-glow"></div>
-          <img src="/Logo.webp" 
-               alt="Logo MG Bisuterías" class="hero-image" />
+          <div class="hero-logo">
+            <div class="logo-placeholder">
+              <Sparkles class="logo-icon" />
+              <span class="logo-text">MG</span>
+            </div>
+          </div>
         </div>
         <div class="floating-elements">
           <div class="floating-element element-1"></div>
@@ -191,6 +195,7 @@ const scrollToContact = () => {
   transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
   transition: transform 0.3s ease;
   max-width: 400px;
+  background: linear-gradient(135deg, #8B5CF6, #A855F7);
 }
 
 .hero-card:hover {
@@ -213,11 +218,37 @@ const scrollToContact = () => {
   opacity: 1;
 }
 
-.hero-image {
+.hero-logo {
   width: 100%;
   height: 500px;
-  object-fit: cover;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.logo-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+.logo-icon {
+  width: 6rem;
+  height: 6rem;
+  margin-bottom: 1rem;
+  opacity: 0.9;
+}
+
+.logo-text {
+  font-size: 4rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .floating-elements {
@@ -319,8 +350,17 @@ const scrollToContact = () => {
     max-width: 300px;
   }
 
-  .hero-image {
+  .hero-logo {
     height: 400px;
+  }
+
+  .logo-icon {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .logo-text {
+    font-size: 3rem;
   }
 }
 </style>
