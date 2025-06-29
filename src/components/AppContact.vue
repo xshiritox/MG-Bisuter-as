@@ -72,6 +72,14 @@ const openWhatsApp = () => {
                 </div>
               </div>
             </div>
+
+            <!-- WhatsApp Button -->
+            <div class="whatsapp-section">
+              <button @click="openWhatsApp" class="whatsapp-btn">
+                <MessageCircle class="btn-icon" />
+                Contactar por WhatsApp
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -197,8 +205,13 @@ const openWhatsApp = () => {
   font-weight: 500;
 }
 
+.whatsapp-section {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+}
+
 .whatsapp-btn {
-  width: 100%;
   background: #25D366;
   color: white;
   border: none;
@@ -212,6 +225,8 @@ const openWhatsApp = () => {
   gap: 0.5rem;
   transition: all 0.3s ease;
   font-size: 1rem;
+  max-width: 300px;
+  width: 100%;
 }
 
 .whatsapp-btn:hover {
