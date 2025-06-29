@@ -20,9 +20,16 @@ export default defineConfig({
     assetsDir: 'assets',
     emptyOutDir: true,
     sourcemap: false,
+    target: 'es2020',
     rollupOptions: {
       output: {
-        manualChunks: undefined
+        entryFileNames: 'assets/[name]-[hash].js',
+        chunkFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]',
+        manualChunks: {
+          'vue': ['vue'],
+          'vendor': ['leaflet', 'lucide-vue-next', '@vueuse/core']
+        }
       }
     }
   },
@@ -35,6 +42,7 @@ export default defineConfig({
     include: ['vue', 'leaflet', 'lucide-vue-next', '@vueuse/core']
   },
   esbuild: {
-    target: 'es2020'
+    target: 'es2020',
+    format: 'esm'
   }
 })
