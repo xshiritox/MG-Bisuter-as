@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { Phone, Mail, MapPin, Clock, MessageCircle } from 'lucide-vue-next'
 
-// El formulario se maneja directamente con HTML (action y method)
-
 const openWhatsApp = () => {
   const phone = '+5355466420'
   const message = 'Hola, me interesa conocer más sobre sus productos de bisutería personalizada.'
@@ -235,124 +233,9 @@ const openWhatsApp = () => {
   box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
 }
 
-.form-card h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1f2937;
-  margin-bottom: 0.5rem;
-}
-
-.form-card p {
-  color: #6b7280;
-  margin-bottom: 2rem;
-}
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-group label {
-  font-weight: 600;
-  color: #374151;
-  margin-bottom: 0.5rem;
-}
-
-.form-group input,
-.form-group textarea {
-  padding: 0.75rem 1rem;
-  border: 2px solid #e5e7eb;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: #8B5CF6;
-  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
-}
-
-.form-group textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
-.submit-btn {
-  background: linear-gradient(135deg, #8B5CF6, #A855F7);
-  color: white;
-  border: none;
-  padding: 1rem 2rem;
-  border-radius: 0.75rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  transition: all 0.3s ease;
-  font-size: 1rem;
-}
-
-.submit-btn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
-}
-
-.submit-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
 .btn-icon {
   width: 1.25rem;
   height: 1.25rem;
-}
-
-.additional-info {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
-  padding: 3rem 0;
-  border-top: 1px solid rgba(139, 92, 246, 0.1);
-}
-
-.info-item {
-  text-align: center;
-  padding: 1.5rem;
-  background: white;
-  border-radius: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease;
-}
-
-.info-item:hover {
-  transform: translateY(-4px);
-}
-
-.info-item h4 {
-  color: #1f2937;
-  margin-bottom: 0.5rem;
-  font-size: 1rem;
-}
-
-.info-item p {
-  color: #6b7280;
-  font-size: 0.875rem;
-  line-height: 1.4;
 }
 
 @media (max-width: 768px) {
@@ -376,15 +259,11 @@ const openWhatsApp = () => {
 }
 
 @media (max-width: 480px) {
-  .additional-info {
-    grid-template-columns: 1fr;
-  }
-
   .contact-container {
     padding: 0 1rem;
   }
 
-  .info-card, .form-card {
+  .info-card {
     padding: 1.5rem;
   }
 }
