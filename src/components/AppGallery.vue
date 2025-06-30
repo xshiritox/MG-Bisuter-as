@@ -717,33 +717,53 @@ const cancelConsultation = () => {
   background: linear-gradient(135deg, #7c3aed, #6d28d9); /* Degradado morado mejorado */
   color: white;                                /* Texto blanco */
   border: none;                                /* Sin borde */
-  padding: 0.5rem 0.75rem;                     /* Espaciado mejorado */
-  border-radius: 0.4rem;                       /* Bordes redondeados */
+  padding: 0.7rem 1rem;                        /* Aumentado el espaciado vertical */
+  border-radius: 0.5rem;                       /* Bordes más redondeados */
   font-weight: 500;                            /* Peso de fuente mejorado */
   cursor: pointer;                             /* Cursor tipo puntero */
   display: flex;                               /* Usa flexbox */
   align-items: center;                         /* Centrado vertical */
   justify-content: center;                     /* Centrado horizontal */
-  gap: 0.4rem;                                 /* Espacio entre icono y texto */
-  font-size: 0.75rem;                          /* Tamaño de fuente legible */
+  gap: 0.5rem;                                 /* Espacio entre icono y texto */
+  font-size: 0.9rem;                           /* Tamaño de fuente aumentado */
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); /* Transición suave */
-  margin-top: 0.5rem;                          /* Espacio superior */
+  margin: 0.7rem 0 0.3rem 0;                   /* Ajuste de márgenes */
   white-space: nowrap;                         /* Evita el salto de línea */
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);  /* Sombra sutil */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);    /* Sombra más pronunciada */
   position: relative;                          /* Para efectos */
-  overflow: hidden;                            /* Para efectos */
+  -webkit-tap-highlight-color: transparent;    /* Elimina el resaltado en móviles */
+  touch-action: manipulation;                  /* Mejora la respuesta táctil */
+  min-height: 2.8rem;                          /* Altura mínima para mejor toque */
   z-index: 1;                                  /* Para efectos */
 }
 
-/* Efecto hover para el botón */
-@media (hover: hover) and (pointer: fine) {
+/* Ajuste para pantallas muy pequeñas */
+@media (max-width: 360px) {
   .add-to-cart-btn {
-    background: linear-gradient(135deg, #6d28d9, #5b21b6);
+    padding: 0.65rem 0.9rem;
+    font-size: 0.85rem;
+    min-height: 2.6rem;
   }
-  
+}
+
+/* Efecto hover para el botón */
+.add-to-cart-btn {
+  background: linear-gradient(135deg, #6d28d9, #5b21b6);
+}
+
+/* Efecto para pantallas táctiles */
+@media (hover: none) and (pointer: coarse) {
+  .add-to-cart-btn:active {
+    transform: scale(0.98);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Efecto para pantallas con mouse */
+@media (hover: hover) and (pointer: fine) {
   .add-to-cart-btn:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15);
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
   }
   
   .add-to-cart-btn:active {
@@ -752,20 +772,40 @@ const cancelConsultation = () => {
   }
 }
 
-/* Efecto de pulsación para pantallas táctiles */
-.add-to-cart-btn:active {
-  transform: scale(0.98);
+/* Efecto de pulsación mejorado para pantallas táctiles */
+@media (hover: none) and (pointer: coarse) {
+  .add-to-cart-btn:active {
+    transform: scale(0.97);
+    opacity: 0.9;
+    transition: transform 0.1s ease, opacity 0.1s ease;
+  }
 }
 
 /* Icono dentro del botón */
 .add-to-cart-btn .btn-icon {
   transition: transform 0.2s ease;
+  width: 1.1em;  /* Tamaño del icono ligeramente mayor */
+  height: 1.1em; /* Mantener la proporción */
 }
 
 /* Efecto hover para el icono */
 @media (hover: hover) and (pointer: fine) {
   .add-to-cart-btn:hover .btn-icon {
     transform: translateX(2px);
+  }
+}
+
+/* Mejora de accesibilidad para el botón */
+.add-to-cart-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.4);
+}
+
+/* Asegurar que el botón sea fácil de tocar en móviles */
+@media (max-width: 480px) {
+  .add-to-cart-btn {
+    min-width: 44px;  /* Tamaño mínimo recomendado para toques */
+    min-height: 44px; /* Tamaño mínimo recomendado para toques */
   }
 }
 
