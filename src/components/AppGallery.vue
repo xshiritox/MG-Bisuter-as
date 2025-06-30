@@ -121,7 +121,7 @@ const confirmConsultation = () => {
   if (!currentProduct.value) return
   
   // Crear mensaje para WhatsApp
-  const message = `Hola, estoy interesad@ en el producto: ${currentProduct.value.name} (${formatPrice(currentProduct.value.value)})`
+  const message = `Hola, estoy interesad@ en el producto: ${currentProduct.value.name} (${formatPrice(currentProduct.value.price)})`
   const whatsappUrl = `https://wa.me/5355466420?text=${encodeURIComponent(message)}`
   
   // Abrir WhatsApp en una nueva pestaña
@@ -320,8 +320,8 @@ const cancelConsultation = () => {
 .products-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);  /* 2 columnas en móviles */
-  gap: 0.75rem;                         /* Espacio entre elementos */
-  padding: 0 0.75rem;                   /* Relleno horizontal */
+  gap: 0.6rem;                          /* Reducido el espacio entre elementos */
+  padding: 0 0.5rem;                    /* Reducido el relleno horizontal */
   max-width: 100%;                      /* Ancho máximo */
   margin: 0 auto;                       /* Centrado */
 }
@@ -464,15 +464,15 @@ const cancelConsultation = () => {
 /* Tarjeta de producto individual */
 .product-card {
   background: white;                            /* Fondo blanco */
-  border-radius: 0.5rem;                      /* Bordes redondeados */
+  border-radius: 0.4rem;                      /* Reducido el radio del borde */
   overflow: hidden;                           /* Oculta el desbordamiento */
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08); /* Sombra sutil */
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05); /* Sombra más sutil */
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
   display: flex;                              /* Usa flexbox para el diseño */
   flex-direction: column;                     /* Organiza los elementos en columna */
   height: 100%;                               /* Ocupa toda la altura disponible */
-  font-size: 0.9em;                           /* Tamaño de fuente base */
-  border: 1px solid #f0f0f0;                  /* Borde sutil */
+  font-size: 0.85em;                          /* Reducido el tamaño de fuente base */
+  border: 1px solid #f5f5f5;                  /* Borde más sutil */
 }
 
 .product-card:hover {
@@ -485,7 +485,7 @@ const cancelConsultation = () => {
   position: relative;              /* Posicionamiento relativo para elementos hijos absolutos */
   width: 100%;                    /* Ancho completo */
   overflow: hidden;               /* Oculta el desbordamiento */
-  border-radius: 0.5rem 0.5rem 0 0; /* Bordes redondeados solo arriba */
+  border-radius: 0.3rem 0.3rem 0 0; /* Reducido el radio del borde */
   padding-top: 100%;              /* Crea un cuadrado perfecto (relación de aspecto 1:1) */
   background: #f8f9fa;            /* Fondo gris claro */
 }
@@ -498,8 +498,8 @@ const cancelConsultation = () => {
   width: 100%;            /* Ancho completo */
   height: 100%;           /* Altura completa */
   object-fit: contain;    /* Ajusta la imagen manteniendo la proporción */
-  transition: transform 0.5s ease; /* Transición suave para efectos hover */
-  padding: 0.5rem;        /* Espaciado interno */
+  transition: transform 0.3s ease; /* Reducida la duración de la transición */
+  padding: 0.35rem;       /* Reducido el espaciado interno */
   box-sizing: border-box; /* Incluye el padding en las dimensiones */
 }
 
@@ -543,27 +543,27 @@ const cancelConsultation = () => {
 
 /* Contenedor de la información del producto */
 .product-info {
-  padding: 0.5rem;        /* Reducido el espaciado interno */
+  padding: 0.4rem;        /* Reducido aún más el espaciado interno */
   flex-grow: 1;           /* Ocupa el espacio restante */
   display: flex;          /* Usa flexbox */
   flex-direction: column; /* Organiza los elementos en columna */
   justify-content: space-between; /* Distribuye el espacio verticalmente */
-  min-height: 90px;      /* Altura mínima fija para consistencia */
+  min-height: 80px;       /* Reducida la altura mínima */
 }
 
 /* Nombre del producto */
 .product-name {
-  font-size: 0.8rem;             /* Reducido el tamaño de fuente */
+  font-size: 0.75rem;            /* Reducido aún más el tamaño de fuente */
   font-weight: 600;              /* Grosor de la fuente */
   color: #1f2937;                /* Color de texto oscuro */
   margin: 0;                     /* Eliminado margen inferior */
-  line-height: 1.2;              /* Altura de línea */
+  line-height: 1.15;             /* Reducida la altura de línea */
   display: -webkit-box;          /* Compatibilidad con navegadores antiguos */
   -webkit-line-clamp: 2;         /* Límite de 2 líneas */
   -webkit-box-orient: vertical;   /* Orientación vertical */
   overflow: hidden;              /* Oculta el texto que se desborda */
   text-overflow: ellipsis;       /* Añade puntos suspensivos si el texto es muy largo */
-  max-height: 2.4em;             /* Altura máxima basada en 2 líneas */
+  max-height: 2.2em;             /* Reducida la altura máxima */
   line-clamp: 2;                /* Estándar moderno para limitar líneas */
 }
 
@@ -574,10 +574,10 @@ const cancelConsultation = () => {
 
 /* Precio del producto */
 .product-price {
-  font-size: 0.9rem;            /* Reducido el tamaño de fuente */
+  font-size: 0.8rem;            /* Reducido el tamaño de fuente */
   font-weight: 700;             /* Texto en negrita */
   color: #8B5CF6;               /* Color morado */
-  margin: 0.2rem 0 0 0;         /* Ajustado márgenes */
+  margin: 0.1rem 0 0 0;         /* Reducido el margen superior */
   display: block;               /* Asegura que ocupe su propia línea */
 }
 
@@ -621,17 +621,18 @@ const cancelConsultation = () => {
   background: linear-gradient(135deg, #8B5CF6, #A855F7); /* Degradado morado */
   color: white;                                /* Texto blanco */
   border: none;                                /* Sin borde */
-  padding: 0.35rem 0.5rem;                     /* Reducido el espaciado vertical */
-  border-radius: 0.4rem;                       /* Bordes redondeados */
+  padding: 0.25rem 0.4rem;                     /* Reducido el espaciado */
+  border-radius: 0.3rem;                       /* Bordes menos redondeados */
   font-weight: 600;                            /* Texto en negrita */
   cursor: pointer;                             /* Cursor tipo puntero */
   display: flex;                               /* Usa flexbox */
   align-items: center;                         /* Centrado vertical */
   justify-content: center;                     /* Centrado horizontal */
-  gap: 0.3rem;                                 /* Espacio entre elementos */
-  font-size: 0.75rem;                          /* Reducido el tamaño de fuente */
+  gap: 0.2rem;                                 /* Reducido el espacio entre elementos */
+  font-size: 0.7rem;                           /* Reducido el tamaño de fuente */
   transition: all 0.2s ease;                   /* Transición suave */
-  margin-top: 0.5rem;                          /* Espacio superior reducido */
+  margin-top: 0.3rem;                          /* Reducido el espacio superior */
+  white-space: nowrap;                         /* Evita el salto de línea */
 }
 
 .add-to-cart-btn:hover {
