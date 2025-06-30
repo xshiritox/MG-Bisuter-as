@@ -87,7 +87,7 @@ const openWhatsApp = () => {
 
 <style scoped>
 .contact {
-  padding: 5rem 0;
+  padding: 2rem 0;
   background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
 }
 
@@ -99,14 +99,14 @@ const openWhatsApp = () => {
 
 .contact-header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 1.5rem;
 }
 
 .section-title {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 800;
   color: #1f2937;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .section-subtitle {
@@ -119,7 +119,7 @@ const openWhatsApp = () => {
 .contact-content {
   display: flex;
   justify-content: center;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
   width: 100%;
 }
 
@@ -127,11 +127,11 @@ const openWhatsApp = () => {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1.5rem;
 }
 
 .info-header {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   text-align: center;
 }
 
@@ -149,7 +149,7 @@ const openWhatsApp = () => {
 .contact-methods {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+  gap: 1rem;
   margin: 0 auto;
   max-width: 900px;
   width: 100%;
@@ -160,10 +160,10 @@ const openWhatsApp = () => {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 1.5rem;
+  padding: 1rem;
   background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -176,20 +176,20 @@ const openWhatsApp = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   background: #8B5CF6;
   color: white;
   flex-shrink: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .method-info h4 {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 600;
   color: #1F2937;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .method-info p {
@@ -198,9 +198,10 @@ const openWhatsApp = () => {
 }
 
 .method-note {
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   color: #8B5CF6;
   font-weight: 500;
+  margin-top: 0.25rem;
 }
 
 .contact-link {
@@ -215,9 +216,11 @@ const openWhatsApp = () => {
 }
 
 .whatsapp-section {
-  margin-top: 3rem;
+  margin: 1.25rem auto 0;
   display: flex;
   justify-content: center;
+  max-width: 280px;
+  width: 100%;
 }
 
 .whatsapp-btn {
