@@ -303,7 +303,7 @@ const cancelConsultation = () => {
   }
   
   .product-image {
-    height: 140px;
+    padding: 0.75rem;
   }
   
   .product-name {
@@ -426,6 +426,7 @@ const cancelConsultation = () => {
   flex-direction: column;
   height: 100%;
   font-size: 0.9em;
+  border: 1px solid #f0f0f0;
 }
 
 .product-card:hover {
@@ -435,26 +436,20 @@ const cancelConsultation = () => {
 
 .product-image-container {
   position: relative;
+  width: 100%;
   overflow: hidden;
+  border-radius: 0.5rem 0.5rem 0 0;
+  padding-top: 100%; /* Relación de aspecto 1:1 */
+  background: #f8f9fa;
 }
 
 .product-image {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 120px;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-@media (min-width: 640px) {
-  .product-image {
-    height: 240px;
-  }
-}
-
-@media (min-width: 768px) {
-  .product-image {
-    height: 280px;
-  }
+  height: 100%;
+  object-fit: contain;
 }
 
 .product-card:hover .product-image {
@@ -463,16 +458,17 @@ const cancelConsultation = () => {
 
 .product-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  top: 0.5rem;
+  left: 0.5rem;
+  right: 0.5rem;
+  bottom: 0.5rem;
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   transition: opacity 0.3s ease;
+  border-radius: 0.3rem;
 }
 
 .product-card:hover .product-overlay {
