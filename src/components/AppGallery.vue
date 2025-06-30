@@ -348,10 +348,35 @@ const cancelConsultation = () => {
 
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 4rem 2rem;
-  margin: 4rem 0;
-  padding: 0 2rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+  padding: 0 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 3rem 2rem;
+    padding: 0 2rem;
+  }
 }
 
 /* Estilos de paginación */
@@ -438,10 +463,22 @@ const cancelConsultation = () => {
 
 .product-image {
   width: 100%;
-  height: 280px;
+  height: 200px;
   object-fit: cover;
   transition: transform 0.3s ease;
   object-position: center;
+}
+
+@media (min-width: 640px) {
+  .product-image {
+    height: 240px;
+  }
+}
+
+@media (min-width: 768px) {
+  .product-image {
+    height: 280px;
+  }
 }
 
 .product-card:hover .product-image {
@@ -485,21 +522,42 @@ const cancelConsultation = () => {
 }
 
 .product-info {
-  padding: 1.5rem;
+  padding: 1rem;
+}
+
+@media (min-width: 768px) {
+  .product-info {
+    padding: 1.5rem;
+  }
 }
 
 .product-name {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #1f2937;
   margin-bottom: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 768px) {
+  .product-name {
+    font-size: 1.25rem;
+  }
 }
 
 .product-price {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: #8B5CF6;
   margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .product-price {
+    font-size: 1.5rem;
+  }
 }
 
 .add-to-cart-btn {
