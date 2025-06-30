@@ -32,7 +32,7 @@ const openWhatsApp = () => {
                 </div>
                 <div class="method-info">
                   <h4>Teléfono</h4>
-                  <p>+53 55466420</p>
+                  <p><a href="tel:+5355466420" class="contact-link">+53 55466420</a></p>
                   <span class="method-note">Lun - Vier: 9:00 AM - 10:00 PM</span>
                 </div>
               </div>
@@ -43,7 +43,7 @@ const openWhatsApp = () => {
                 </div>
                 <div class="method-info">
                   <h4>Email</h4>
-                  <p>madaygallego789@gmail.com</p>
+                  <p><a href="mailto:madaygallego789@gmail.com" class="contact-link">madaygallego789@gmail.com</a></p>
                   <span class="method-note">Respuesta en 24 horas</span>
                 </div>
               </div>
@@ -201,6 +201,17 @@ const openWhatsApp = () => {
   font-size: 0.875rem;
   color: #8B5CF6;
   font-weight: 500;
+}
+
+.contact-link {
+  color: #4b5563;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+  color: #8B5CF6;
+  text-decoration: underline;
 }
 
 .whatsapp-section {

@@ -18,6 +18,8 @@ interface Category {
 
 const selectedCategory = ref<string>('todos')
 const selectedProduct = ref<Product | null>(null)
+const showConfirmation = ref(false)
+const currentProduct = ref<Product | null>(null)
 
 const categories: Category[] = [
   { id: 'todos', name: 'Todos' },
@@ -101,6 +103,25 @@ const openProductModal = (product: Product) => {
 const closeProductModal = () => {
   selectedProduct.value = null
 }
+
+const handleConsultation = (product: Product) => {
+  currentProduct.value = product
+  showConfirmation.value = true
+}
+
+const confirmConsultation = () => {
+  if (!currentProduct.value) return
+  
+  const message = `Hola, estoy interesad@ en el producto: ${currentProduct.value.name} (${formatPrice(currentProduct.value.price)})`
+  const whatsappUrl = `https://wa.me/5355466420?text=${encodeURIComponent(message)}`
+  window.open(whatsappUrl, '_blank')
+  showConfirmation.value = false
+}
+
+const cancelConsultation = () => {
+  showConfirmation.value = false
+  currentProduct.value = null
+}
 </script>
 
 <template>
@@ -145,7 +166,7 @@ const closeProductModal = () => {
           <div class="product-info">
             <h3 class="product-name">{{ product.name }}</h3>
             <p class="product-price">{{ formatPrice(product.price) }}</p>
-            <button class="add-to-cart-btn">
+            <button class="add-to-cart-btn" @click="handleConsultation(product)">
               <ShoppingBag class="btn-icon" />
               Consultar
             </button>
@@ -177,13 +198,33 @@ const closeProductModal = () => {
           </div>
           
           <div class="modal-actions">
-            <button class="btn-primary">Consultar Precio</button>
+            <button class="btn-primary" @click="handleConsultation(selectedProduct)">Consultar Precio</button>
             <button @click="closeProductModal" class="btn-secondary">Cerrar</button>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Modal de Confirmación -->
+  <div v-if="showConfirmation" class="confirmation-overlay">
+    <div class="confirmation-modal">
+      <div class="confirmation-content">
+        <h3>¡Consulta sobre producto!</h3>
+        <p>¿Deseas consultar sobre este producto?</p>
+        <p class="product-name">{{ currentProduct?.name }}</p>
+        <p class="product-price">{{ currentProduct ? formatPrice(currentProduct.price) : '' }}</p>
+        <div class="confirmation-buttons">
+          <button @click="confirmConsultation" class="btn-confirm">
+            Sí, ir a WhatsApp
+          </button>
+          <button @click="cancelConsultation" class="btn-cancel">
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -602,6 +643,98 @@ const closeProductModal = () => {
     opacity: 1;
     transform: scale(1);
   }
+}
+
+/* Estilos para el modal de confirmación */
+.confirmation-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.confirmation-modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.confirmation-content h3 {
+  color: #7C3AED;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.confirmation-content p {
+  color: #4B5563;
+  margin-bottom: 0.5rem;
+}
+
+.product-name {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #1F2937 !important;
+  margin: 1rem 0 !important;
+}
+
+.product-price {
+  font-weight: 700;
+  color: #8B5CF6 !important;
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem !important;
+}
+
+.confirmation-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.btn-confirm, .btn-cancel {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.btn-confirm {
+  background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+  color: white;
+}
+
+.btn-confirm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4);
+}
+
+.btn-cancel {
+  background: #F3F4F6;
+  color: #6B7280;
+}
+
+.btn-cancel:hover {
+  background: #E5E7EB;
 }
 
 @media (max-width: 768px) {

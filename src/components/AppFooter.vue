@@ -61,11 +61,11 @@ const scrollToSection = (sectionId: string) => {
           <div class="contact-info">
             <div class="contact-item">
               <Phone class="contact-icon" />
-              <span>+53 55466420</span>
+              <a href="tel:+5355466420" class="contact-link">+53 55466420</a>
             </div>
             <div class="contact-item">
               <Mail class="contact-icon" />
-              <span>madaygallego789@gmail.com</span>
+              <a href="mailto:madaygallego789@gmail.com" class="contact-link">madaygallego789@gmail.com</a>
             </div>
             <div class="contact-item">
               <MapPin class="contact-icon" />
@@ -229,6 +229,17 @@ const scrollToSection = (sectionId: string) => {
   color: #8B5CF6;
   flex-shrink: 0;
   margin-top: 0.125rem;
+}
+
+.contact-link {
+  color: #d1d5db;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.contact-link:hover {
+  color: #8B5CF6;
+  text-decoration: underline;
 }
 
 .newsletter-section {

@@ -101,9 +101,9 @@ onMounted(() => {
                 Esto nos permite brindarte atención personalizada y dedicar el tiempo necesario 
                 para discutir tu proyecto en detalle.
               </p>
-              <button class="schedule-btn">
+              <a href="tel:+5355466420" class="schedule-btn">
                 📞 Agendar Cita
-              </button>
+              </a>
             </div>
           </div>
         </div>
