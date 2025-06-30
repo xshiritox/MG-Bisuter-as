@@ -281,11 +281,10 @@ const cancelConsultation = () => {
 .products-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin: 1.5rem 0;
+  gap: 0.75rem;
   padding: 0 0.75rem;
-  width: 100%;
-  box-sizing: border-box;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 /* Estilos base para móviles (ya están configurados para 2 columnas) */
@@ -299,8 +298,37 @@ const cancelConsultation = () => {
 @media (min-width: 640px) {
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+  
+  .product-image {
+    height: 140px;
+  }
+  
+  .product-name {
+    font-size: 0.9rem;
+  }
+  
+  .product-price {
+    font-size: 1rem;
+  }
+  
+  .add-to-cart-btn {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
     padding: 0 1.5rem;
+  }
+  
+  .product-card {
+    border-radius: 0.6rem;
   }
   
   .product-image {
@@ -308,36 +336,11 @@ const cancelConsultation = () => {
   }
   
   .product-name {
-    font-size: 0.9375rem;
+    font-size: 0.95rem;
   }
   
   .product-price {
-    font-size: 1.0625rem;
-  }
-  
-  .add-to-cart-btn {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.8125rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .products-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    padding: 0 2rem;
-  }
-  
-  .product-image {
-    height: 180px;
-  }
-  
-  .product-name {
-    font-size: 1rem;
-  }
-  
-  .product-price {
-    font-size: 1.125rem;
+    font-size: 1.1rem;
   }
 }
 
@@ -415,14 +418,14 @@ const cancelConsultation = () => {
 
 .product-card {
   background: white;
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
   height: 100%;
-  margin: 0.25rem;
+  font-size: 0.9em;
 }
 
 .product-card:hover {
@@ -437,9 +440,9 @@ const cancelConsultation = () => {
 
 .product-image {
   width: 100%;
-  height: 140px;
+  height: 120px;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
 }
 
 @media (min-width: 640px) {
@@ -495,25 +498,30 @@ const cancelConsultation = () => {
 }
 
 .product-info {
-  padding: 0.75rem;
+  padding: 0.6rem;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
 
 .product-name {
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: #1f2937;
-  margin: 0;
+  margin: 0 0 0.1rem 0;
   line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.4em;
 }
 
 .product-price {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #8B5CF6;
-  margin: 0.1rem 0 0.5rem 0;
+  margin: 0.2rem 0 0.5rem 0;
 }
 
 @media (min-width: 768px) {
@@ -537,15 +545,17 @@ const cancelConsultation = () => {
   background: linear-gradient(135deg, #8B5CF6, #A855F7);
   color: white;
   border: none;
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
+  padding: 0.4rem 0.5rem;
+  border-radius: 0.4rem;
   font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  transition: transform 0.2s ease;
+  gap: 0.3rem;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+  margin-top: auto;
 }
 
 .add-to-cart-btn:hover {
