@@ -11,23 +11,10 @@ interface Product {
   description: string;
 }
 
-interface Category {
-  id: string;
-  name: string;
-}
 
-const selectedCategory = ref<string>('todos')
 const selectedProduct = ref<Product | null>(null)
 const showConfirmation = ref(false)
 const currentProduct = ref<Product | null>(null)
-
-const categories: Category[] = [
-  { id: 'todos', name: 'Todos' },
-  { id: 'collares', name: 'Collares' },
-  { id: 'pulseras', name: 'Pulseras' },
-  { id: 'aretes', name: 'Aretes' },
-  { id: 'anillos', name: 'Anillos' }
-]
 
 const products: Product[] = [
   {
@@ -80,12 +67,7 @@ const products: Product[] = [
   }
 ]
 
-const filteredProducts = computed<Product[]>(() => {
-  return selectedCategory.value === 'todos' 
-    ? [...products] 
-    : products.filter((product: Product) => product.category === selectedCategory.value)
-})
-
+const filteredProducts = computed<Product[]>(() => [...products])
 
 
 const formatPrice = (price: number): string => {
@@ -134,19 +116,7 @@ const cancelConsultation = () => {
         </p>
       </div>
 
-      <!-- Category Filter -->
-      <div class="category-filter">
-        <button 
-          v-for="category in categories" 
-          :key="category.id"
-          @click="selectedCategory = category.id"
-          :class="['filter-btn', { active: selectedCategory === category.id }]"
-        >
-          {{ category.name }}
-        </button>
-      </div>
-
-      <!-- Products Grid -->
+<!-- Products Grid -->
       <div class="products-grid">
         <div 
           v-for="product in filteredProducts" 
@@ -314,36 +284,6 @@ const cancelConsultation = () => {
   color: #6b7280;
   max-width: 600px;
   margin: 0 auto;
-}
-
-.category-filter {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
-}
-
-.filter-btn {
-  padding: 0.75rem 1.5rem;
-  border: 2px solid #e5e7eb;
-  background: white;
-  border-radius: 2rem;
-  font-weight: 500;
-  color: #6b7280;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.filter-btn:hover {
-  border-color: #8B5CF6;
-  color: #8B5CF6;
-}
-
-.filter-btn.active {
-  background: linear-gradient(135deg, #8B5CF6, #A855F7);
-  color: white;
-  border-color: transparent;
 }
 
 .products-grid {
