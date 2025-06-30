@@ -216,14 +216,6 @@ const cancelConsultation = () => {
   z-index: 10;
 }
 
-:deep(.pagination) {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  gap: 0.5rem;
-}
-
 :deep(.page-item) {
   margin: 0 0.25rem;
 }
@@ -307,8 +299,25 @@ const cancelConsultation = () => {
 @media (min-width: 640px) {
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    gap: 1.5rem;
     padding: 0 1.5rem;
+  }
+  
+  .product-image {
+    height: 160px;
+  }
+  
+  .product-name {
+    font-size: 0.9375rem;
+  }
+  
+  .product-price {
+    font-size: 1.0625rem;
+  }
+  
+  .add-to-cart-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8125rem;
   }
 }
 
@@ -317,6 +326,18 @@ const cancelConsultation = () => {
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     padding: 0 2rem;
+  }
+  
+  .product-image {
+    height: 180px;
+  }
+  
+  .product-name {
+    font-size: 1rem;
+  }
+  
+  .product-price {
+    font-size: 1.125rem;
   }
 }
 
@@ -394,10 +415,14 @@ const cancelConsultation = () => {
 
 .product-card {
   background: white;
-  border-radius: 1rem;
+  border-radius: 0.75rem;
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0.25rem;
 }
 
 .product-card:hover {
@@ -412,10 +437,9 @@ const cancelConsultation = () => {
 
 .product-image {
   width: 100%;
-  height: 200px;
+  height: 140px;
   object-fit: cover;
   transition: transform 0.3s ease;
-  object-position: center;
 }
 
 @media (min-width: 640px) {
@@ -471,7 +495,10 @@ const cancelConsultation = () => {
 }
 
 .product-info {
-  padding: 1rem;
+  padding: 0.75rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 @media (min-width: 768px) {
@@ -481,13 +508,16 @@ const cancelConsultation = () => {
 }
 
 .product-name {
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: #1f2937;
-  margin-bottom: 0.5rem;
-  white-space: nowrap;
+  margin-bottom: 0.25rem;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
+  min-height: 2.4em;
 }
 
 @media (min-width: 768px) {
@@ -497,10 +527,10 @@ const cancelConsultation = () => {
 }
 
 .product-price {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #8B5CF6;
-  margin-bottom: 1rem;
+  margin: 0.25rem 0 0.5rem;
 }
 
 @media (min-width: 768px) {
