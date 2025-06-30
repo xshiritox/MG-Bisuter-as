@@ -62,16 +62,16 @@ import { Heart, Users, Award, Sparkles } from 'lucide-vue-next'
         <div class="about-images">
           <div class="image-grid">
             <div class="image-card primary">
-              <img src="https://images.pexels.com/photos/1191531/pexels-photo-1191531.jpeg?auto=compress&cs=tinysrgb&w=400" 
-                   alt="Taller de bisutería" class="about-image" />
+              <img src="/Producto/01.jpg" 
+                   alt="Producto 1" class="about-image" />
             </div>
             <div class="image-card secondary">
-              <img src="https://images.pexels.com/photos/1456706/pexels-photo-1456706.jpeg?auto=compress&cs=tinysrgb&w=400" 
-                   alt="Accesorios elegantes" class="about-image" />
+              <img src="/Producto/02.jpg" 
+                   alt="Producto 2" class="about-image" />
             </div>
             <div class="image-card tertiary">
-              <img src="https://images.pexels.com/photos/1191536/pexels-photo-1191536.jpeg?auto=compress&cs=tinysrgb&w=400" 
-                   alt="Detalles artesanales" class="about-image" />
+              <img src="/Producto/03.jpg" 
+                   alt="Producto 3" class="about-image" />
             </div>
           </div>
         </div>

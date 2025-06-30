@@ -49,10 +49,7 @@ const scrollToContact = () => {
         <div class="hero-card">
           <div class="card-glow"></div>
           <div class="hero-logo">
-            <div class="logo-placeholder">
-              <Sparkles class="logo-icon" />
-              <span class="logo-text">MG</span>
-            </div>
+            <img src="/logomg.jpg" alt="MG Bisuterías Logo" class="logo-image" />
           </div>
         </div>
         <div class="floating-elements">
@@ -189,13 +186,18 @@ const scrollToContact = () => {
 
 .hero-card {
   position: relative;
-  border-radius: 2rem;
+  border-radius: 1.5rem;
   overflow: hidden;
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
   transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
-  transition: transform 0.3s ease;
-  max-width: 400px;
-  background: linear-gradient(135deg, #8B5CF6, #A855F7);
+  transition: all 0.4s ease;
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 1/1;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-card:hover {
@@ -220,12 +222,12 @@ const scrollToContact = () => {
 
 .hero-logo {
   width: 100%;
-  height: 500px;
+  height: 100%;
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  z-index: 2;
 }
 
 .logo-placeholder {
@@ -244,11 +246,21 @@ const scrollToContact = () => {
   opacity: 0.9;
 }
 
-.logo-text {
-  font-size: 4rem;
-  font-weight: 900;
-  letter-spacing: 0.1em;
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+.logo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.5s ease;
+}
+
+.hero-card:hover {
+  transform: perspective(1000px) rotateY(0) rotateX(0);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+}
+
+.hero-card:hover .logo-image {
+  transform: scale(1.05);
 }
 
 .floating-elements {

@@ -30,51 +30,51 @@ const categories: Category[] = [
 const products: Product[] = [
   {
     id: 1,
-    name: 'Collar Elegante Dorado',
-    category: 'collares',
-    price: 45000,
-    image: 'https://images.pexels.com/photos/1191531/pexels-photo-1191531.jpeg?auto=compress&cs=tinysrgb&w=400',
-    description: 'Hermoso collar con cadena dorada y dije personalizable'
+    name: 'Pulsera con cruces',
+    category: 'Pulseras',
+    price: 250,
+    image: '/Producto/Galeria/1.jpg',
+    description: 'Hermosa pulsera con cruces'
   },
   {
     id: 2,
-    name: 'Pulsera Personalizada',
+    name: 'Pulsera con flores tejidas',
     category: 'pulseras',
-    price: 25000,
-    image: 'https://images.pexels.com/photos/1456706/pexels-photo-1456706.jpeg?auto=compress&cs=tinysrgb&w=400',
-    description: 'Pulsera con charms intercambiables según tu estilo'
+    price: 300,
+    image: '/Producto/Galeria/2.jpg',
+    description: 'Pulsera con flores tejidas'
   },
   {
     id: 3,
-    name: 'Aretes Cristal Violeta',
-    category: 'aretes',
-    price: 35000,
-    image: 'https://images.pexels.com/photos/1191536/pexels-photo-1191536.jpeg?auto=compress&cs=tinysrgb&w=400',
-    description: 'Elegantes aretes con cristales en tonos violeta'
+    name: 'Pulsera paracord',
+    category: 'pulseras',
+    price: 300,
+    image: '/Producto/Galeria/3.jpg',
+    description: 'Pulsera paracord'
   },
   {
     id: 4,
-    name: 'Anillo Minimalista',
-    category: 'anillos',
-    price: 30000,
-    image: 'https://images.pexels.com/photos/1454172/pexels-photo-1454172.jpeg?auto=compress&cs=tinysrgb&w=400',
-    description: 'Anillo de diseño minimalista con acabado mate'
+    name: 'Pulsera love',
+    category: 'pulseras',
+    price: 250,
+    image: '/Producto/Galeria/4.jpg',
+    description: 'Pulsera love'
   },
   {
     id: 5,
-    name: 'Collar Perlas Naturales',
-    category: 'collares',
-    price: 65000,
-    image: 'https://images.pexels.com/photos/1456706/pexels-photo-1456706.jpeg?auto=compress&cs=tinysrgb&w=400',
-    description: 'Collar con perlas naturales de agua dulce'
+    name: 'Pulsera gymrat',
+    category: 'pulseras',
+    price: 300,
+    image: '/Producto/Galeria/5.jpg',
+    description: 'Pulsera gymrat'
   },
   {
     id: 6,
-    name: 'Set Pulseras Multicapa',
+    name: 'Pulsera amor infinito',
     category: 'pulseras',
-    price: 40000,
-    image: 'https://images.pexels.com/photos/1191531/pexels-photo-1191531.jpeg?auto=compress&cs=tinysrgb&w=400',
-    description: 'Set de 3 pulseras que se pueden usar juntas o separadas'
+    price: 250,
+    image: '/Producto/Galeria/6.jpg',
+    description: 'Pulsera amor infinito'
   }
 ]
 
@@ -173,7 +173,6 @@ const closeProductModal = () => {
               <li>Material premium</li>
               <li>Diseño personalizable</li>
               <li>Garantía de calidad</li>
-              <li>Envío a domicilio</li>
             </ul>
           </div>
           
@@ -308,9 +307,10 @@ const closeProductModal = () => {
 
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2rem;
-  margin-bottom: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 4rem 2rem;
+  margin: 4rem 0;
+  padding: 0 2rem;
 }
 
 /* Estilos de paginación */
@@ -397,9 +397,10 @@ const closeProductModal = () => {
 
 .product-image {
   width: 100%;
-  height: 250px;
+  height: 280px;
   object-fit: cover;
   transition: transform 0.3s ease;
+  object-position: center;
 }
 
 .product-card:hover .product-image {
