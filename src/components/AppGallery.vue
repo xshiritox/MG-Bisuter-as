@@ -501,41 +501,34 @@ const cancelConsultation = () => {
   flex-direction: column;
 }
 
-@media (min-width: 768px) {
-  .product-info {
-    padding: 1.5rem;
-  }
-}
-
 .product-name {
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #1f2937;
-  margin-bottom: 0.25rem;
+  margin: 0;
   line-height: 1.2;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  min-height: 2.4em;
-}
-
-@media (min-width: 768px) {
-  .product-name {
-    font-size: 1.25rem;
-  }
 }
 
 .product-price {
-  font-size: 1rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: #8B5CF6;
-  margin: 0.25rem 0 0.5rem;
+  margin: 0.1rem 0 0.5rem 0;
 }
 
 @media (min-width: 768px) {
+  .product-info {
+    padding: 1rem;
+  }
+  
+  .product-name {
+    font-size: 1.1rem;
+    margin-bottom: 0.05rem;
+  }
+  
   .product-price {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
+    margin: 0.05rem 0 0.4rem 0;
   }
 }
 
