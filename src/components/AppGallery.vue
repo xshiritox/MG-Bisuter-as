@@ -1,21 +1,27 @@
+<!-- Script de configuración del componente -->
 <script setup lang="ts">
+// Importaciones de Vue y dependencias
 import { ref, computed } from 'vue'
+// Importación de iconos de Lucide
 import { ShoppingBag, Eye } from 'lucide-vue-next'
 
+// Interfaz que define la estructura de un producto
 interface Product {
-  id: number;
-  name: string;
-  category: string;
-  price: number;
-  image: string;
-  description: string;
+  id: number;           // Identificador único del producto
+  name: string;        // Nombre del producto
+  category: string;    // Categoría del producto
+  price: number;       // Precio del producto
+  image: string;       // Ruta de la imagen del producto
+  description: string; // Descripción detallada
 }
 
 
-const selectedProduct = ref<Product | null>(null)
-const showConfirmation = ref(false)
-const currentProduct = ref<Product | null>(null)
+// Referencias reactivas
+const selectedProduct = ref<Product | null>(null)  // Producto seleccionado para ver detalles
+const showConfirmation = ref(false)               // Controla la visibilidad del modal de confirmación
+const currentProduct = ref<Product | null>(null)  // Producto actual para consulta
 
+// Lista de productos disponibles en la galería
 const products: Product[] = [
   {
     id: 1,
@@ -67,9 +73,15 @@ const products: Product[] = [
   }
 ]
 
+// Lista filtrada de productos (actualmente muestra todos los productos)
 const filteredProducts = computed<Product[]>(() => [...products])
 
 
+/**
+ * Formatea un precio como moneda colombiana (COP)
+ * @param price - Precio a formatear
+ * @returns Precio formateado como cadena de texto
+ */
 const formatPrice = (price: number): string => {
   return new Intl.NumberFormat('es-CO', {
     style: 'currency',
@@ -78,35 +90,57 @@ const formatPrice = (price: number): string => {
   }).format(price)
 }
 
+/**
+ * Abre el modal con los detalles del producto
+ * @param product - Producto a mostrar en el modal
+ */
 const openProductModal = (product: Product) => {
   selectedProduct.value = product
 }
 
+/**
+ * Cierra el modal de detalles del producto
+ */
 const closeProductModal = () => {
   selectedProduct.value = null
 }
 
+/**
+ * Maneja la solicitud de consulta de un producto
+ * @param product - Producto sobre el que se desea consultar
+ */
 const handleConsultation = (product: Product) => {
   currentProduct.value = product
   showConfirmation.value = true
 }
 
+/**
+ * Confirma la consulta y abre WhatsApp con el mensaje predefinido
+ */
 const confirmConsultation = () => {
   if (!currentProduct.value) return
   
-  const message = `Hola, estoy interesad@ en el producto: ${currentProduct.value.name} (${formatPrice(currentProduct.value.price)})`
+  // Crear mensaje para WhatsApp
+  const message = `Hola, estoy interesad@ en el producto: ${currentProduct.value.name} (${formatPrice(currentProduct.value.value)})`
   const whatsappUrl = `https://wa.me/5355466420?text=${encodeURIComponent(message)}`
+  
+  // Abrir WhatsApp en una nueva pestaña
   window.open(whatsappUrl, '_blank')
   showConfirmation.value = false
 }
 
+/**
+ * Cancela la consulta y cierra el modal
+ */
 const cancelConsultation = () => {
   showConfirmation.value = false
   currentProduct.value = null
 }
 </script>
 
+<!-- Plantilla del componente -->
 <template>
+  <!-- Sección principal de la galería -->
   <section id="galeria" class="gallery">
     <div class="gallery-container">
       <div class="gallery-header">
@@ -134,10 +168,12 @@ const cancelConsultation = () => {
           </div>
           
           <div class="product-info">
-            <h3 class="product-name">{{ product.name }}</h3>
-            <p class="product-price">{{ formatPrice(product.price) }}</p>
-            <button class="add-to-cart-btn" @click="handleConsultation(product)">
-              <ShoppingBag class="btn-icon" />
+            <div class="product-details">
+              <h3 class="product-name">{{ product.name }}</h3>
+              <span class="product-price">{{ formatPrice(product.price) }}</span>
+            </div>
+            <button class="add-to-cart-btn" @click.stop="handleConsultation(product)">
+              <ShoppingBag :size="14" />
               Consultar
             </button>
           </div>
@@ -147,7 +183,7 @@ const cancelConsultation = () => {
 
     </div>
 
-    <!-- Product Modal -->
+    <!-- Modal de detalles del producto -->
     <div v-if="selectedProduct" class="modal-overlay" @click="closeProductModal">
       <div class="modal-content" @click.stop>
         <div class="modal-image">
@@ -176,7 +212,7 @@ const cancelConsultation = () => {
     </div>
   </section>
 
-  <!-- Modal de Confirmación -->
+  <!-- Modal de confirmación para consulta por WhatsApp -->
   <div v-if="showConfirmation" class="confirmation-overlay">
     <div class="confirmation-modal">
       <div class="confirmation-content">
@@ -197,10 +233,12 @@ const cancelConsultation = () => {
   </div>
 </template>
 
+<!-- Estilos con alcance al componente -->
 <style scoped>
+/* Estilos de la sección de galería */
 .gallery {
-  padding: 5rem 0;
-  background: #ffffff;
+  padding: 5rem 0;        /* Espaciado vertical */
+  background: #ffffff;     /* Fondo blanco */
 }
 
 .pagination-container {
@@ -278,16 +316,20 @@ const cancelConsultation = () => {
   margin: 0 auto;
 }
 
+/* Contenedor de la cuadrícula de productos */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
-  padding: 0 0.75rem;
-  max-width: 100%;
-  margin: 0 auto;
+  grid-template-columns: repeat(2, 1fr);  /* 2 columnas en móviles */
+  gap: 0.75rem;                         /* Espacio entre elementos */
+  padding: 0 0.75rem;                   /* Relleno horizontal */
+  max-width: 100%;                      /* Ancho máximo */
+  margin: 0 auto;                       /* Centrado */
 }
 
-/* Estilos base para móviles (ya están configurados para 2 columnas) */
+/* 
+ * Estilos base para móviles
+ * Se muestran 2 columnas por defecto en móviles
+ */
 
 @media (min-width: 500px) {
   .products-grid {
@@ -352,7 +394,10 @@ const cancelConsultation = () => {
   }
 }
 
-/* Estilos de paginación */
+/* 
+ * Media Queries para diseño responsivo
+ * Ajustes para diferentes tamaños de pantalla
+ */
 .pagination-container {
   display: flex;
   justify-content: center;
@@ -416,17 +461,18 @@ const cancelConsultation = () => {
   cursor: not-allowed;
 }
 
+/* Tarjeta de producto individual */
 .product-card {
-  background: white;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  font-size: 0.9em;
-  border: 1px solid #f0f0f0;
+  background: white;                            /* Fondo blanco */
+  border-radius: 0.5rem;                      /* Bordes redondeados */
+  overflow: hidden;                           /* Oculta el desbordamiento */
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08); /* Sombra sutil */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+  display: flex;                              /* Usa flexbox para el diseño */
+  flex-direction: column;                     /* Organiza los elementos en columna */
+  height: 100%;                               /* Ocupa toda la altura disponible */
+  font-size: 0.9em;                           /* Tamaño de fuente base */
+  border: 1px solid #f0f0f0;                  /* Borde sutil */
 }
 
 .product-card:hover {
@@ -434,41 +480,43 @@ const cancelConsultation = () => {
   box-shadow: 0 20px 40px rgba(139, 92, 246, 0.15);
 }
 
+/* Contenedor de la imagen del producto */
 .product-image-container {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  border-radius: 0.5rem 0.5rem 0 0;
-  padding-top: 100%; /* Relación de aspecto 1:1 */
-  background: #f8f9fa;
+  position: relative;              /* Posicionamiento relativo para elementos hijos absolutos */
+  width: 100%;                    /* Ancho completo */
+  overflow: hidden;               /* Oculta el desbordamiento */
+  border-radius: 0.5rem 0.5rem 0 0; /* Bordes redondeados solo arriba */
+  padding-top: 100%;              /* Crea un cuadrado perfecto (relación de aspecto 1:1) */
+  background: #f8f9fa;            /* Fondo gris claro */
 }
 
+/* Imagen del producto */
 .product-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  position: absolute;      /* Posicionamiento absoluto dentro del contenedor */
+  top: 0;                 /* Alineación superior */
+  left: 0;                /* Alineación izquierda */
+  width: 100%;            /* Ancho completo */
+  height: 100%;           /* Altura completa */
+  object-fit: contain;    /* Ajusta la imagen manteniendo la proporción */
+  transition: transform 0.5s ease; /* Transición suave para efectos hover */
+  padding: 0.5rem;        /* Espaciado interno */
+  box-sizing: border-box; /* Incluye el padding en las dimensiones */
 }
 
-.product-card:hover .product-image {
-  transform: scale(1.1);
-}
-
+/* Overlay que aparece al pasar el ratón sobre la imagen */
 .product-overlay {
-  position: absolute;
-  top: 0.5rem;
-  left: 0.5rem;
-  right: 0.5rem;
-  bottom: 0.5rem;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  border-radius: 0.3rem;
+  position: absolute;            /* Posicionamiento absoluto */
+  top: 0.5rem;                  /* Margen superior */
+  left: 0.5rem;                 /* Margen izquierdo */
+  right: 0.5rem;                /* Margen derecho */
+  bottom: 0.5rem;               /* Margen inferior */
+  background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  display: flex;                /* Usa flexbox para centrar */
+  align-items: center;          /* Centrado vertical */
+  justify-content: center;      /* Centrado horizontal */
+  opacity: 0;                   /* Inicialmente invisible */
+  transition: opacity 0.3s ease; /* Transición suave */
+  border-radius: 0.3rem;        /* Bordes redondeados */
 }
 
 .product-card:hover .product-overlay {
@@ -493,31 +541,62 @@ const cancelConsultation = () => {
   transform: scale(1.05);
 }
 
+/* Contenedor de la información del producto */
 .product-info {
-  padding: 0.6rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
+  padding: 0.5rem;        /* Reducido el espaciado interno */
+  flex-grow: 1;           /* Ocupa el espacio restante */
+  display: flex;          /* Usa flexbox */
+  flex-direction: column; /* Organiza los elementos en columna */
+  justify-content: space-between; /* Distribuye el espacio verticalmente */
+  min-height: 90px;      /* Altura mínima fija para consistencia */
 }
 
+/* Nombre del producto */
 .product-name {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin: 0 0 0.1rem 0;
-  line-height: 1.2;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  min-height: 2.4em;
+  font-size: 0.8rem;             /* Reducido el tamaño de fuente */
+  font-weight: 600;              /* Grosor de la fuente */
+  color: #1f2937;                /* Color de texto oscuro */
+  margin: 0;                     /* Eliminado margen inferior */
+  line-height: 1.2;              /* Altura de línea */
+  display: -webkit-box;          /* Compatibilidad con navegadores antiguos */
+  -webkit-line-clamp: 2;         /* Límite de 2 líneas */
+  -webkit-box-orient: vertical;   /* Orientación vertical */
+  overflow: hidden;              /* Oculta el texto que se desborda */
+  text-overflow: ellipsis;       /* Añade puntos suspensivos si el texto es muy largo */
+  max-height: 2.4em;             /* Altura máxima basada en 2 líneas */
+  line-clamp: 2;                /* Estándar moderno para limitar líneas */
 }
 
+/* Contenedor para nombre y precio */
+.product-details {
+  margin-top: auto;             /* Empuja el contenedor hacia abajo */
+}
+
+/* Precio del producto */
 .product-price {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #8B5CF6;
-  margin: 0.2rem 0 0.5rem 0;
+  font-size: 0.9rem;            /* Reducido el tamaño de fuente */
+  font-weight: 700;             /* Texto en negrita */
+  color: #8B5CF6;               /* Color morado */
+  margin: 0.2rem 0 0 0;         /* Ajustado márgenes */
+  display: block;               /* Asegura que ocupe su propia línea */
+}
+
+/* Ajustes para pantallas más grandes */
+@media (min-width: 768px) {
+  .product-info {
+    padding: 0.6rem;
+    min-height: auto;
+  }
+  
+  .product-name {
+    font-size: 0.85rem;
+    margin: 0 0 0.1rem 0;
+  }
+  
+  .product-price {
+    font-size: 1rem;
+    margin: 0.2rem 0 0.5rem 0;
+  }
 }
 
 @media (min-width: 768px) {
@@ -536,22 +615,23 @@ const cancelConsultation = () => {
   }
 }
 
+/* Botón de consulta */
 .add-to-cart-btn {
-  width: 100%;
-  background: linear-gradient(135deg, #8B5CF6, #A855F7);
-  color: white;
-  border: none;
-  padding: 0.4rem 0.5rem;
-  border-radius: 0.4rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.3rem;
-  font-size: 0.8rem;
-  transition: all 0.2s ease;
-  margin-top: auto;
+  width: 100%;                                  /* Ancho completo */
+  background: linear-gradient(135deg, #8B5CF6, #A855F7); /* Degradado morado */
+  color: white;                                /* Texto blanco */
+  border: none;                                /* Sin borde */
+  padding: 0.35rem 0.5rem;                     /* Reducido el espaciado vertical */
+  border-radius: 0.4rem;                       /* Bordes redondeados */
+  font-weight: 600;                            /* Texto en negrita */
+  cursor: pointer;                             /* Cursor tipo puntero */
+  display: flex;                               /* Usa flexbox */
+  align-items: center;                         /* Centrado vertical */
+  justify-content: center;                     /* Centrado horizontal */
+  gap: 0.3rem;                                 /* Espacio entre elementos */
+  font-size: 0.75rem;                          /* Reducido el tamaño de fuente */
+  transition: all 0.2s ease;                   /* Transición suave */
+  margin-top: 0.5rem;                          /* Espacio superior reducido */
 }
 
 .add-to-cart-btn:hover {
