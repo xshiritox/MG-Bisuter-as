@@ -7,9 +7,6 @@ import { Heart, Users, Award, Sparkles } from 'lucide-vue-next'
     <div class="about-container">
       <div class="about-header">
         <h2 class="section-title">Sobre MG Bisuterías</h2>
-        <p class="section-subtitle">
-          Más de 5 años creando piezas únicas que cuentan historias
-        </p>
       </div>
 
       <div class="about-content">
