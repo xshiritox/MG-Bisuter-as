@@ -289,11 +289,19 @@ const cancelConsultation = () => {
 .products-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  margin: 2rem 0;
-  padding: 0 1rem;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  padding: 0 0.75rem;
   width: 100%;
   box-sizing: border-box;
+}
+
+/* Estilos base para móviles (ya están configurados para 2 columnas) */
+
+@media (min-width: 500px) {
+  .products-grid {
+    padding: 0 1.5rem;
+  }
 }
 
 @media (min-width: 640px) {
@@ -307,7 +315,8 @@ const cancelConsultation = () => {
 @media (min-width: 768px) {
   .products-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
+    gap: 2rem;
+    padding: 0 2rem;
   }
 }
 
