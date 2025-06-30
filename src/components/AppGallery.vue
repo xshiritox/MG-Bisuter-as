@@ -320,10 +320,19 @@ const cancelConsultation = () => {
 .products-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);  /* 2 columnas en móviles */
-  gap: 0.6rem;                          /* Reducido el espacio entre elementos */
-  padding: 0 0.5rem;                    /* Reducido el relleno horizontal */
+  gap: 0.8rem;                          /* Espaciado entre elementos */
+  padding: 0 0.75rem;                   /* Relleno horizontal */
   max-width: 100%;                      /* Ancho máximo */
   margin: 0 auto;                       /* Centrado */
+  padding-bottom: 1rem;                 /* Espacio inferior */
+}
+
+/* Ajustes para pantallas muy pequeñas */
+@media (max-width: 360px) {
+  .products-grid {
+    gap: 0.6rem;
+    padding: 0 0.5rem 1rem;
+  }
 }
 
 /* 
@@ -464,15 +473,24 @@ const cancelConsultation = () => {
 /* Tarjeta de producto individual */
 .product-card {
   background: white;                            /* Fondo blanco */
-  border-radius: 0.4rem;                      /* Reducido el radio del borde */
+  border-radius: 0.5rem;                      /* Radio de borde suave */
   overflow: hidden;                           /* Oculta el desbordamiento */
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05); /* Sombra más sutil */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);  /* Sombra suave */
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); /* Transición suave */
   display: flex;                              /* Usa flexbox para el diseño */
   flex-direction: column;                     /* Organiza los elementos en columna */
   height: 100%;                               /* Ocupa toda la altura disponible */
-  font-size: 0.85em;                          /* Reducido el tamaño de fuente base */
-  border: 1px solid #f5f5f5;                  /* Borde más sutil */
+  font-size: 0.9em;                           /* Tamaño de fuente base */
+  border: 1px solid #f0f0f0;                  /* Borde sutil */
+  position: relative;                         /* Para posicionar elementos absolutos */
+}
+
+/* Efecto hover para dispositivos con hover */
+@media (hover: hover) and (pointer: fine) {
+  .product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  }
 }
 
 .product-card:hover {
@@ -485,38 +503,89 @@ const cancelConsultation = () => {
   position: relative;              /* Posicionamiento relativo para elementos hijos absolutos */
   width: 100%;                    /* Ancho completo */
   overflow: hidden;               /* Oculta el desbordamiento */
-  border-radius: 0.3rem 0.3rem 0 0; /* Reducido el radio del borde */
+  border-radius: 0.5rem 0.5rem 0 0; /* Bordes redondeados solo arriba */
   padding-top: 100%;              /* Crea un cuadrado perfecto (relación de aspecto 1:1) */
-  background: #f8f9fa;            /* Fondo gris claro */
+  background: #fafafa;            /* Fondo gris muy claro */
+  border-bottom: 1px solid #f0f0f0; /* Línea sutil de separación */
 }
 
 /* Imagen del producto */
 .product-image {
   position: absolute;      /* Posicionamiento absoluto dentro del contenedor */
-  top: 0;                 /* Alineación superior */
-  left: 0;                /* Alineación izquierda */
-  width: 100%;            /* Ancho completo */
-  height: 100%;           /* Altura completa */
+  top: 50%;               /* Centrado vertical */
+  left: 50%;              /* Centrado horizontal */
+  width: 85%;             /* Ancho reducido */
+  height: 85%;            /* Altura reducida */
+  transform: translate(-50%, -50%); /* Centrado perfecto */
   object-fit: contain;    /* Ajusta la imagen manteniendo la proporción */
-  transition: transform 0.3s ease; /* Reducida la duración de la transición */
-  padding: 0.35rem;       /* Reducido el espaciado interno */
-  box-sizing: border-box; /* Incluye el padding en las dimensiones */
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); /* Transición suave */
+  will-change: transform; /* Optimización de rendimiento */
+}
+
+/* Efecto hover para la imagen */
+@media (hover: hover) and (pointer: fine) {
+  .product-card:hover .product-image {
+    transform: translate(-50%, -50%) scale(1.03);
+  }
 }
 
 /* Overlay que aparece al pasar el ratón sobre la imagen */
 .product-overlay {
   position: absolute;            /* Posicionamiento absoluto */
-  top: 0.5rem;                  /* Margen superior */
-  left: 0.5rem;                 /* Margen izquierdo */
-  right: 0.5rem;                /* Margen derecho */
-  bottom: 0.5rem;               /* Margen inferior */
-  background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  top: 0;                       /* Sin margen superior */
+  left: 0;                      /* Sin margen izquierdo */
+  right: 0;                     /* Sin margen derecho */
+  bottom: 0;                    /* Sin margen inferior */
+  background: rgba(0, 0, 0, 0.6); /* Fondo semitransparente más oscuro */
   display: flex;                /* Usa flexbox para centrar */
   align-items: center;          /* Centrado vertical */
   justify-content: center;      /* Centrado horizontal */
   opacity: 0;                   /* Inicialmente invisible */
-  transition: opacity 0.3s ease; /* Transición suave */
-  border-radius: 0.3rem;        /* Bordes redondeados */
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Transición suave */
+  z-index: 2;                   /* Asegura que esté por encima de la imagen */
+}
+
+/* Botón dentro del overlay */
+.overlay-btn {
+  background: rgba(255, 255, 255, 0.95);
+  color: #4f46e5;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  transform: translateY(10px);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Efecto hover para el overlay */
+@media (hover: hover) and (pointer: fine) {
+  .product-card:hover .product-overlay {
+    opacity: 1;
+  }
+  
+  .product-card:hover .overlay-btn {
+    transform: translateY(0);
+    opacity: 1;
+    transition-delay: 0.1s;
+  }
+  
+  .overlay-btn:hover {
+    background: white;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  .overlay-btn:active {
+    transform: translateY(0) !important;
+  }
 }
 
 .product-card:hover .product-overlay {
@@ -543,28 +612,46 @@ const cancelConsultation = () => {
 
 /* Contenedor de la información del producto */
 .product-info {
-  padding: 0.4rem;        /* Reducido aún más el espaciado interno */
+  padding: 0.75rem 0.8rem; /* Espaciado interno mejorado */
   flex-grow: 1;           /* Ocupa el espacio restante */
   display: flex;          /* Usa flexbox */
   flex-direction: column; /* Organiza los elementos en columna */
   justify-content: space-between; /* Distribuye el espacio verticalmente */
-  min-height: 80px;       /* Reducida la altura mínima */
+  min-height: 90px;       /* Altura mínima adecuada */
+  position: relative;     /* Para posicionar elementos absolutos */
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 360px) {
+  .product-info {
+    padding: 0.6rem 0.7rem;
+    min-height: 85px;
+  }
 }
 
 /* Nombre del producto */
 .product-name {
-  font-size: 0.75rem;            /* Reducido aún más el tamaño de fuente */
-  font-weight: 600;              /* Grosor de la fuente */
-  color: #1f2937;                /* Color de texto oscuro */
-  margin: 0;                     /* Eliminado margen inferior */
-  line-height: 1.15;             /* Reducida la altura de línea */
+  font-size: 0.78rem;            /* Tamaño de fuente legible */
+  font-weight: 500;              /* Peso de fuente más fino */
+  color: #2d3748;                /* Color de texto oscuro mejorado */
+  margin: 0 0 0.15rem 0;         /* Márgenes ajustados */
+  line-height: 1.25;             /* Altura de línea mejorada */
   display: -webkit-box;          /* Compatibilidad con navegadores antiguos */
   -webkit-line-clamp: 2;         /* Límite de 2 líneas */
   -webkit-box-orient: vertical;   /* Orientación vertical */
   overflow: hidden;              /* Oculta el texto que se desborda */
-  text-overflow: ellipsis;       /* Añade puntos suspensivos si el texto es muy largo */
-  max-height: 2.2em;             /* Reducida la altura máxima */
-  line-clamp: 2;                /* Estándar moderno para limitar líneas */
+  text-overflow: ellipsis;       /* Añade puntos suspensivos */
+  max-height: 2.5em;             /* Altura máxima para 2 líneas */
+  line-clamp: 2;                /* Estándar moderno */
+  letter-spacing: -0.01em;       /* Espaciado entre letras más ajustado */
+  transition: color 0.2s ease;   /* Transición suave para hover */
+}
+
+/* Efecto hover para el nombre */
+@media (hover: hover) and (pointer: fine) {
+  .product-card:hover .product-name {
+    color: #4f46e5; /* Color más vivo al hacer hover */
+  }
 }
 
 /* Contenedor para nombre y precio */
@@ -574,11 +661,20 @@ const cancelConsultation = () => {
 
 /* Precio del producto */
 .product-price {
-  font-size: 0.8rem;            /* Reducido el tamaño de fuente */
-  font-weight: 700;             /* Texto en negrita */
-  color: #8B5CF6;               /* Color morado */
-  margin: 0.1rem 0 0 0;         /* Reducido el margen superior */
+  font-size: 0.85rem;           /* Tamaño de fuente ligeramente mayor */
+  font-weight: 600;             /* Peso de fuente mejorado */
+  color: #6d28d9;               /* Color morado más profesional */
+  margin: 0.2rem 0 0 0;         /* Márgenes mejorados */
   display: block;               /* Asegura que ocupe su propia línea */
+  position: relative;           /* Para efectos adicionales */
+  transition: color 0.2s ease;  /* Transición suave */
+}
+
+/* Efecto hover para el precio */
+@media (hover: hover) and (pointer: fine) {
+  .product-card:hover .product-price {
+    color: #5b21b6; /* Color más oscuro al hacer hover */
+  }
 }
 
 /* Ajustes para pantallas más grandes */
@@ -618,21 +714,59 @@ const cancelConsultation = () => {
 /* Botón de consulta */
 .add-to-cart-btn {
   width: 100%;                                  /* Ancho completo */
-  background: linear-gradient(135deg, #8B5CF6, #A855F7); /* Degradado morado */
+  background: linear-gradient(135deg, #7c3aed, #6d28d9); /* Degradado morado mejorado */
   color: white;                                /* Texto blanco */
   border: none;                                /* Sin borde */
-  padding: 0.25rem 0.4rem;                     /* Reducido el espaciado */
-  border-radius: 0.3rem;                       /* Bordes menos redondeados */
-  font-weight: 600;                            /* Texto en negrita */
+  padding: 0.5rem 0.75rem;                     /* Espaciado mejorado */
+  border-radius: 0.4rem;                       /* Bordes redondeados */
+  font-weight: 500;                            /* Peso de fuente mejorado */
   cursor: pointer;                             /* Cursor tipo puntero */
   display: flex;                               /* Usa flexbox */
   align-items: center;                         /* Centrado vertical */
   justify-content: center;                     /* Centrado horizontal */
-  gap: 0.2rem;                                 /* Reducido el espacio entre elementos */
-  font-size: 0.7rem;                           /* Reducido el tamaño de fuente */
-  transition: all 0.2s ease;                   /* Transición suave */
-  margin-top: 0.3rem;                          /* Reducido el espacio superior */
+  gap: 0.4rem;                                 /* Espacio entre icono y texto */
+  font-size: 0.75rem;                          /* Tamaño de fuente legible */
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); /* Transición suave */
+  margin-top: 0.5rem;                          /* Espacio superior */
   white-space: nowrap;                         /* Evita el salto de línea */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);  /* Sombra sutil */
+  position: relative;                          /* Para efectos */
+  overflow: hidden;                            /* Para efectos */
+  z-index: 1;                                  /* Para efectos */
+}
+
+/* Efecto hover para el botón */
+@media (hover: hover) and (pointer: fine) {
+  .add-to-cart-btn {
+    background: linear-gradient(135deg, #6d28d9, #5b21b6);
+  }
+  
+  .add-to-cart-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.15);
+  }
+  
+  .add-to-cart-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Efecto de pulsación para pantallas táctiles */
+.add-to-cart-btn:active {
+  transform: scale(0.98);
+}
+
+/* Icono dentro del botón */
+.add-to-cart-btn .btn-icon {
+  transition: transform 0.2s ease;
+}
+
+/* Efecto hover para el icono */
+@media (hover: hover) and (pointer: fine) {
+  .add-to-cart-btn:hover .btn-icon {
+    transform: translateX(2px);
+  }
 }
 
 .add-to-cart-btn:hover {
