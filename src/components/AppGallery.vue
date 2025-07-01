@@ -418,7 +418,7 @@ const cancelConsultation = () => {
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
-  padding: 2rem 0 5rem; /* Aumentado el padding inferior para los botones */
+  padding: 2rem 0 7rem; /* Aumentado el padding inferior de 5rem a 7rem para dar más espacio a los botones */
   overflow: visible; /* Cambiado para permitir que los botones se vean fuera del contenedor */
 }
 
@@ -549,7 +549,7 @@ const cancelConsultation = () => {
     height: 35px;
     font-size: 1rem;
     top: auto;
-    bottom: -50px;
+    bottom: -70px;  /* Aumentado de -50px a -70px para bajar más los botones */
     transform: none;
   }
   
