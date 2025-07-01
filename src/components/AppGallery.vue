@@ -210,6 +210,10 @@ const cancelConsultation = () => {
       <!-- Carrusel de la categoría seleccionada -->
       <div class="category-section">
         <div class="category-carousel">
+          <button class="carousel-button prev" @click="prevImage">
+            <span>&#10094;</span>
+          </button>
+          
           <div class="carousel-container">
             <div 
               v-for="(product, index) in getProductsByCategory(selectedCategory)" 
@@ -234,14 +238,9 @@ const cancelConsultation = () => {
             </div>
           </div>
           
-          <div class="carousel-controls">
-            <button class="carousel-button prev" @click="prevImage">
-              <span>&#10094;</span>
-            </button>
-            <button class="carousel-button next" @click="nextImage">
-              <span>&#10095;</span>
-            </button>
-          </div>
+          <button class="carousel-button next" @click="nextImage">
+            <span>&#10095;</span>
+          </button>
         </div>
       </div>
       
@@ -419,18 +418,8 @@ const cancelConsultation = () => {
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
-  padding: 2rem 0 3rem;
+  padding: 2rem 0;
   overflow: hidden;
-}
-
-/* Controles del carrusel */
-.carousel-controls {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin-top: 1.5rem;
-  position: relative;
-  z-index: 10;
 }
 
 .carousel-container {
@@ -534,8 +523,8 @@ const cancelConsultation = () => {
   }
   
   .carousel-slide {
-    width: 180px;
-    height: 280px;
+    width: 180px;    /* Reducido de 220px a 180px */
+    height: 280px;   /* Reducido de 320px a 280px */
   }
   
   .product-image {
@@ -559,24 +548,14 @@ const cancelConsultation = () => {
     width: 35px;
     height: 35px;
     font-size: 1rem;
-    top: auto;
-    bottom: -70px;  /* Aumentado de -50px a -70px para bajar más los botones */
-    transform: none;
-  }
-  
-  .carousel-button.prev {
-    left: 30%;
-    transform: translateX(-50%);
-  }
-  
-  .carousel-button.next {
-    right: 30%;
-    transform: translateX(50%);
   }
 }
 
 
 .carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -589,8 +568,8 @@ const cancelConsultation = () => {
   justify-content: center;
   font-size: 1.5rem;
   color: #6d28d9;
+  z-index: 10;
   transition: all 0.3s ease;
-  position: relative;
 }
 
 .carousel-button:hover {
@@ -598,33 +577,12 @@ const cancelConsultation = () => {
   color: white;
 }
 
-/* Estilos para pantallas de escritorio */
-@media (min-width: 769px) {
-  .carousel-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  
-  .carousel-button.prev {
-    left: 20px;
-  }
-  
-  .carousel-button.next {
-    right: 20px;
-  }
-  
-  .carousel-controls {
-    display: none;
-  }
+.carousel-button.prev {
+  left: 20px;
 }
 
-/* Estilos para móviles */
-@media (max-width: 768px) {
-  .carousel-button {
-    position: static;
-    transform: none;
-  }
+.carousel-button.next {
+  right: 20px;
 }
 
 @media (max-width: 768px) {
