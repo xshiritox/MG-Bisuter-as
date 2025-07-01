@@ -301,7 +301,7 @@ const cancelConsultation = () => {
 <style scoped>
 /* Estilos de la sección de galería */
 .gallery {
-  padding: 3rem 0 2rem;   /* Espaciado vertical reducido */
+  padding: 2rem 0 1rem;   /* Espaciado vertical reducido */
   background: #ffffff;     /* Fondo blanco */
 }
 
