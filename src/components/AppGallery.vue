@@ -523,8 +523,8 @@ const cancelConsultation = () => {
   }
   
   .carousel-slide {
-    width: 220px;    /* Aumentado de 180px a 220px */
-    height: 320px;   /* Aumentado de 280px a 320px */
+    width: 180px;    /* Reducido de 220px a 180px */
+    height: 280px;   /* Reducido de 320px a 280px */
   }
   
   .product-image {
