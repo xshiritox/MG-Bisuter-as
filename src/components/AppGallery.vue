@@ -418,8 +418,8 @@ const cancelConsultation = () => {
   width: 100%;
   max-width: 1000px;
   margin: 0 auto;
-  padding: 2rem 0;
-  overflow: hidden;
+  padding: 2rem 0 5rem; /* Aumentado el padding inferior para los botones */
+  overflow: visible; /* Cambiado para permitir que los botones se vean fuera del contenedor */
 }
 
 .carousel-container {
@@ -523,8 +523,8 @@ const cancelConsultation = () => {
   }
   
   .carousel-slide {
-    width: 180px;    /* Reducido de 220px a 180px */
-    height: 280px;   /* Reducido de 320px a 280px */
+    width: 180px;
+    height: 280px;
   }
   
   .product-image {
@@ -548,6 +548,19 @@ const cancelConsultation = () => {
     width: 35px;
     height: 35px;
     font-size: 1rem;
+    top: auto;
+    bottom: -50px;
+    transform: none;
+  }
+  
+  .carousel-button.prev {
+    left: 30%;
+    transform: translateX(-50%);
+  }
+  
+  .carousel-button.next {
+    right: 30%;
+    transform: translateX(50%);
   }
 }
 
