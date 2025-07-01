@@ -20,61 +20,109 @@ interface Product {
 const selectedProduct = ref<Product | null>(null)  // Producto seleccionado para ver detalles
 const showConfirmation = ref(false)               // Controla la visibilidad del modal de confirmación
 const currentProduct = ref<Product | null>(null)  // Producto actual para consulta
+const selectedCategory = ref<string>('')          // Categoría seleccionada
 
 // Lista de productos disponibles en la galería
 const products: Product[] = [
+  // Pulseras
   {
     id: 1,
     name: 'Pulsera con cruces',
     category: 'Pulseras',
     price: 250,
-    image: '/Producto/Galeria/1.jpg',
+    image: '/Producto/Galeria/Pulseras/1.jpg',
     description: 'Hermosa pulsera con cruces'
   },
   {
     id: 2,
     name: 'Pulsera con flores tejidas',
-    category: 'pulseras',
+    category: 'Pulseras',
     price: 300,
-    image: '/Producto/Galeria/2.jpg',
+    image: '/Producto/Galeria/Pulseras/2.jpg',
     description: 'Pulsera con flores tejidas'
   },
   {
     id: 3,
     name: 'Pulsera paracord',
-    category: 'pulseras',
+    category: 'Pulseras',
     price: 300,
-    image: '/Producto/Galeria/3.jpg',
+    image: '/Producto/Galeria/Pulseras/3.jpg',
     description: 'Pulsera paracord'
   },
   {
     id: 4,
     name: 'Pulsera love',
-    category: 'pulseras',
+    category: 'Pulseras',
     price: 250,
-    image: '/Producto/Galeria/4.jpg',
+    image: '/Producto/Galeria/Pulseras/4.jpg',
     description: 'Pulsera love'
   },
   {
     id: 5,
     name: 'Pulsera gymrat',
-    category: 'pulseras',
+    category: 'Pulseras',
     price: 300,
-    image: '/Producto/Galeria/5.jpg',
+    image: '/Producto/Galeria/Pulseras/5.jpg',
     description: 'Pulsera gymrat'
   },
   {
     id: 6,
     name: 'Pulsera amor infinito',
-    category: 'pulseras',
+    category: 'Pulseras',
     price: 250,
-    image: '/Producto/Galeria/6.jpg',
+    image: '/Producto/Galeria/Pulseras/6.jpg',
     description: 'Pulsera amor infinito'
-  }
+  },
+  
+  // Collares
+
+  // Adornos
+  
+  // Colgantes
+
+  // Llaveros
+
 ]
 
-// Lista filtrada de productos (actualmente muestra todos los productos)
-const filteredProducts = computed<Product[]>(() => [...products])
+// Obtener categorías únicas de productos
+const categories = computed(() => {
+  const cats = new Set(products.map(p => p.category))
+  return ['Todas', ...Array.from(cats)]
+})
+
+// Establecer la primera categoría como seleccionada por defecto
+if (categories.value.length > 0) {
+  selectedCategory.value = categories.value[0]
+}
+
+// Filtrar productos por categoría
+const getProductsByCategory = (category: string) => {
+  if (category === 'Todas') {
+    return products
+  }
+  return products.filter(p => p.category === category)
+}
+
+// Estado para el índice activo
+const activeIndex = ref(0)
+
+/**
+ * Navega a la imagen anterior en el carrusel
+ */
+const prevImage = () => {
+  const productsInCategory = getProductsByCategory(selectedCategory.value)
+  activeIndex.value = (activeIndex.value - 1 + productsInCategory.length) % productsInCategory.length
+}
+
+/**
+ * Navega a la siguiente imagen en el carrusel
+ */
+const nextImage = () => {
+  const productsInCategory = getProductsByCategory(selectedCategory.value)
+  activeIndex.value = (activeIndex.value + 1) % productsInCategory.length
+}
+
+
 
 
 /**
@@ -144,39 +192,55 @@ const cancelConsultation = () => {
   <section id="galeria" class="gallery">
     <div class="gallery-container">
       <div class="gallery-header">
-        <h2 class="section-title">Catálogo</h2>
+        <h2 class="section-title">Nuestros Productos</h2>
         <p class="section-subtitle">
-          Descubre mi colección de accesorios únicos y personalizados
+          Descubre nuestra exclusiva colección de bisutería artesanal
         </p>
+        
+        <!-- Selector de categorías -->
+        <div class="category-selector">
+          <select v-model="selectedCategory" class="category-dropdown">
+            <option v-for="category in categories" :key="category" :value="category">
+              {{ category }}
+            </option>
+          </select>
+        </div>
       </div>
 
-<!-- Products Grid -->
-      <div class="products-grid">
-        <div 
-          v-for="product in filteredProducts" 
-          :key="product.id"
-          class="product-card"
-        >
-          <div class="product-image-container">
-            <img :src="product.image" :alt="product.name" class="product-image" />
-            <div class="product-overlay">
-              <button @click="openProductModal(product)" class="overlay-btn">
-                <Eye class="btn-icon" />
-                Ver Detalles
-              </button>
+      <!-- Carrusel de la categoría seleccionada -->
+      <div class="category-section">
+        <div class="category-carousel">
+          <button class="carousel-button prev" @click="prevImage">
+            <span>&#10094;</span>
+          </button>
+          
+          <div class="carousel-container">
+            <div 
+              v-for="(product, index) in getProductsByCategory(selectedCategory)" 
+              :key="product.id"
+              class="carousel-slide"
+              :class="{
+                'active': index === activeIndex,
+                'prev': index === (activeIndex - 1 + getProductsByCategory(selectedCategory).length) % getProductsByCategory(selectedCategory).length,
+                'next': index === (activeIndex + 1) % getProductsByCategory(selectedCategory).length
+              }"
+            >
+              <div class="product-card">
+                <img :src="product.image" :alt="product.name" class="product-image" />
+                <div class="product-info">
+                  <h3 class="product-name">{{ product.name }}</h3>
+                  <button class="product-button" @click="handleConsultation(product)">
+                    <ShoppingBag :size="14" />
+                    {{ formatPrice(product.price) }}
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
           
-          <div class="product-info">
-            <div class="product-details">
-              <h3 class="product-name">{{ product.name }}</h3>
-              <span class="product-price">{{ formatPrice(product.price) }}</span>
-            </div>
-            <button class="add-to-cart-btn" @click.stop="handleConsultation(product)">
-              <ShoppingBag :size="14" />
-              Consultar
-            </button>
-          </div>
+          <button class="carousel-button next" @click="nextImage">
+            <span>&#10095;</span>
+          </button>
         </div>
       </div>
       
@@ -237,7 +301,7 @@ const cancelConsultation = () => {
 <style scoped>
 /* Estilos de la sección de galería */
 .gallery {
-  padding: 5rem 0;        /* Espaciado vertical */
+  padding: 3rem 0 2rem;   /* Espaciado vertical reducido */
   background: #ffffff;     /* Fondo blanco */
 }
 
@@ -317,8 +381,229 @@ const cancelConsultation = () => {
 }
 
 /* Contenedor de la cuadrícula de productos */
+/* Selector de categorías */
+.category-selector {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.category-dropdown {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.1rem;
+  border: 2px solid #6d28d9;
+  border-radius: 30px;
+  background-color: white;
+  color: #4a4a4a;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.category-dropdown:hover {
+  background-color: #f5f3ff;
+}
+
+.category-dropdown:focus {
+  box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.2);
+}
+
+/* Estilos para las secciones de categoría */
+.category-section {
+  margin: 2rem 0 4rem;
+}
+
+/* Estilos para el carrusel */
+.category-carousel {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 0;
+  overflow: hidden;
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  height: 500px;  /* Aumentado de 400px a 500px */
+  perspective: 1000px;
+}
+
+.carousel-slide {
+  position: absolute;
+  width: 300px;    /* Aumentado de 250px a 300px */
+  height: 420px;   /* Aumentado de 350px a 420px */
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%) scale(0.8);
+  transition: all 0.5s ease;
+  opacity: 0.6;
+  z-index: 1;
+}
+
+.carousel-slide.prev {
+  transform: translateX(-150%) scale(0.8);
+  opacity: 0.8;
+  z-index: 2;
+}
+
+.carousel-slide.active {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+  z-index: 3;
+}
+
+.carousel-slide.next {
+  transform: translateX(50%) scale(0.8);
+  opacity: 0.8;
+  z-index: 2;
+}
+
+.product-card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.member-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 15px 15px 0 0;
+}
+
+.product-info {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.product-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.product-button {
+  background: #6d28d9;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.25rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  transition: all 0.3s ease;
+  min-width: 120px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.product-button:hover {
+  background: #5b21b6;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .category-dropdown {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .carousel-slide {
+    width: 220px;    /* Aumentado de 180px a 220px */
+    height: 320px;   /* Aumentado de 280px a 320px */
+  }
+  
+  .product-image {
+    height: 150px;
+  }
+  
+  .product-name {
+    font-size: 1rem;
+  }
+  
+  .product-price {
+    font-size: 0.9rem;
+  }
+  
+  .product-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  
+  .carousel-button {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+}
+
+
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: white;
+  border: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #6d28d9;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.carousel-button:hover {
+  background: #6d28d9;
+  color: white;
+}
+
+.carousel-button.prev {
+  left: 20px;
+}
+
+.carousel-button.next {
+  right: 20px;
+}
+
+@media (max-width: 768px) {
+  .carousel-slide {
+    width: 250px;    /* Aumentado de 200px a 250px */
+    height: 350px;   /* Aumentado de 300px a 350px */
+  }
+  
+  .member-image {
+    height: 200px;
+  }
+  
+  .carousel-button {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+}
+
 .products-grid {
-  display: grid;
+  display: none;  /* Ocultar la cuadrícula de productos */
   grid-template-columns: repeat(2, 1fr);  /* 2 columnas en móviles */
   gap: 0.8rem;                          /* Espaciado entre elementos */
   padding: 0 0.75rem;                   /* Relleno horizontal */
