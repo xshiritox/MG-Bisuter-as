@@ -409,7 +409,7 @@ const cancelConsultation = () => {
 
 /* Estilos para las secciones de categoría */
 .category-section {
-  margin: 2rem 0 4rem;
+  margin: 2rem 0 1rem;
 }
 
 /* Estilos para el carrusel */
