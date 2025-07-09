@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { ref, onMounted, computed, watch, nextTick } from 'vue'
 // Component name for devtools
 defineOptions({
   name: 'AppGallery',
   inheritAttrs: false
 })
-import { ref, onMounted, computed, watch } from 'vue'
 import { ShoppingBag, Eye } from 'lucide-vue-next'
 import { supabase } from '@/lib/supabase'
 
@@ -233,6 +233,16 @@ const handleDropdownBlur = () => {
 const selectCategory = (category: string | null) => {
   selectedCategory.value = category
   showCategoryDropdown.value = false
+  
+  // Si hay una categoría seleccionada, asegurarse de que esté visible
+  if (category && categories.value[category]) {
+    // Forzar la actualización de la vista
+    const currentProducts = [...categories.value[category].products]
+    categories.value[category].products = []
+    nextTick(() => {
+      categories.value[category].products = currentProducts
+    })
+  }
 }
 
 // Formatear precio
@@ -273,22 +283,29 @@ const formatPrice = (price: number): string => {
       No hay productos disponibles en este momento.
     </div>
 
-    <div v-else class="categories-container">
+    <div class="categories-container">
       <!-- Menú desplegable de categorías -->
       <div class="category-dropdown">
         <button 
           class="dropdown-toggle"
-          @click="showCategoryDropdown = !showCategoryDropdown"
+          @click.stop="showCategoryDropdown = !showCategoryDropdown"
           @blur="handleDropdownBlur"
         >
-          {{ selectedCategory || 'Selecciona una categoría' }}
+          {{ selectedCategory || 'Selecciona categoría' }}
           <span class="dropdown-arrow" :class="{ 'rotate-180': showCategoryDropdown }">▼</span>
         </button>
         
         <transition name="fade">
           <div v-if="showCategoryDropdown" class="dropdown-menu">
             <button 
-              v-for="category in CATEGORIES" 
+              class="dropdown-item"
+              :class="{ active: selectedCategory === null }"
+              @click="selectCategory(null)"
+            >
+              Selecciona categoría
+            </button>
+            <button 
+              v-for="category in Object.keys(categories).sort()" 
               :key="category"
               class="dropdown-item"
               :class="{ active: selectedCategory === category }"
@@ -400,6 +417,13 @@ const formatPrice = (price: number): string => {
 
 <style scoped>
 /* Estilos del contenedor de categorías */
+.gallery-section {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
 .categories-container {
   max-width: 1400px;
   margin: 0 auto;
@@ -407,7 +431,7 @@ const formatPrice = (price: number): string => {
   position: relative;
 }
 
-/* Menú desplegable de categorías */
+/* Estilos para el menú desplegable de categorías */
 .category-dropdown {
   position: relative;
   max-width: 300px;
@@ -423,7 +447,7 @@ const formatPrice = (price: number): string => {
   padding: 0.75rem 1.5rem;
   background: white;
   border: 2px solid #e2e8f0;
-  border-radius: 50px;
+  border-radius: 8px;
   color: #4a5568;
   font-size: 1rem;
   font-weight: 600;
@@ -450,6 +474,56 @@ const formatPrice = (price: number): string => {
 .dropdown-toggle:focus .dropdown-arrow,
 .dropdown-toggle:hover .dropdown-arrow {
   transform: translateY(2px);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin-top: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 20;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  background: none;
+  border: none;
+  color: #4a5568;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background: #f8fafc;
+  color: #2d3748;
+}
+
+.dropdown-item.active {
+  background: #edf2f7;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+/* Transición para el menú desplegable */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
 }
 
 .dropdown-menu {
