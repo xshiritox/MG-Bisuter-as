@@ -103,12 +103,8 @@ const handleLogout = async () => {
 .admin-header {
   background-color: #111827;
   color: white;
-  padding: 1.5rem 0;
+  padding: 4rem 0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
   z-index: 50;
 }
 
@@ -123,19 +119,15 @@ const handleLogout = async () => {
 
 .admin-header h1 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 60%;
 }
 
 .logout-btn {
   background-color: #374151;
   color: white;
   border: 1px solid #4b5563;
-  padding: 0.5rem 0.75rem;
+  padding: 0.4rem 0.9rem;
   border-radius: 0.375rem;
   cursor: pointer;
   font-weight: 500;
@@ -144,7 +136,6 @@ const handleLogout = async () => {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  white-space: nowrap;
 }
 
 .logout-btn:hover {
@@ -152,43 +143,11 @@ const handleLogout = async () => {
 }
 
 .logout-btn svg {
-  flex-shrink: 0;
-}
-
-/* Estilos para móviles */
-@media (max-width: 640px) {
-  .admin-header {
-    padding: 1rem 0;
-  }
-  
-  .admin-header h1 {
-    font-size: 1.25rem;
-    max-width: 55%;
-  }
-  
-  .logout-btn {
-    padding: 0.4rem 0.6rem;
-    font-size: 0.8rem;
-  }
-  
-  .logout-btn span {
-    display: none; /* Ocultar texto en móviles muy pequeños */
-  }
-  
-  .logout-btn svg {
-    margin-right: 0;
-  }
+  margin-right: 0.25rem;
 }
 
 .admin-main {
   flex: 1;
-  margin-top: 5rem; /* Espacio para el header fijo */
-  padding: 1rem 0;
-  
-  @media (max-width: 640px) {
-    margin-top: 4rem;
-    padding: 0.5rem 0;
-  }
   padding: 1.5rem 0;
 }
 
