@@ -61,9 +61,13 @@ const toggleMenu = (event?: Event) => {
   // Bloquear/desbloquear el scroll del body cuando el menú está abierto
   if (isMenuOpen.value) {
     document.body.style.overflow = 'hidden';
+    // Forzar un reflow para asegurar que la transición se aplique
+    document.body.offsetHeight;
   } else {
     document.body.style.overflow = '';
   }
+  
+  console.log('Menú abierto:', isMenuOpen.value); // Para depuración
 }
 
 const handleMobileLinkClick = (sectionId: string) => {
@@ -113,7 +117,7 @@ const scrollToSection = (sectionId: string) => {
       </div>
 
       <!-- Mobile Menu -->
-      <div v-show="isMenuOpen" class="mobile-menu" @click.stop>
+      <div :class="['mobile-menu', { 'mobile-menu--active': isMenuOpen }]" @click.stop>
         <ul class="mobile-nav-menu">
           <li><a @click="handleMobileLinkClick('inicio')" class="mobile-nav-link">Inicio</a></li>
           <li><a @click="handleMobileLinkClick('nosotros')" class="mobile-nav-link">Nosotros</a></li>
@@ -576,17 +580,14 @@ const scrollToSection = (sectionId: string) => {
   -webkit-overflow-scrolling: touch;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   padding: 1rem 0;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  display: none; /* Oculto por defecto */
+  opacity: 0; /* Inicialmente transparente */
+  transition: opacity 0.3s ease;
 }
 
-/* Estado inicial y final de la animación */
-.mobile-menu {
-  transform: translateY(-100%);
-  opacity: 0;
-}
-
-.mobile-menu.v-show {
-  transform: translateY(0);
+/* Mostrar el menú cuando está activo */
+.mobile-menu.mobile-menu--active {
+  display: block;
   opacity: 1;
 }
 
@@ -630,13 +631,28 @@ const scrollToSection = (sectionId: string) => {
   }
 
   .mobile-menu-btn {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
     z-index: 1001;
+  }
+
+  .mobile-menu-btn svg {
+    width: 24px;
+    height: 24px;
   }
 
   .nav-container {
     padding: 1rem;
     position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 </style>
