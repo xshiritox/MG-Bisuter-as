@@ -72,7 +72,7 @@ const scrollToSection = (sectionId: string) => {
     <nav class="nav">
       <div class="nav-container">
         <!-- Logo with Admin Login -->
-        <div class="logo" @click="showAdminLogin = true" style="cursor: pointer;">
+        <div class="logo" @click.stop="showAdminLogin = true" style="cursor: pointer;">
           <Gem class="logo-icon" />
           <span class="logo-text">MG Bisuterías</span>
           <span class="admin-badge" v-if="!isAdmin">Admin</span>
