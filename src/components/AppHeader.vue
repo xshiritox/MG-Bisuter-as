@@ -579,10 +579,11 @@ const scrollToSection = (sectionId: string) => {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  padding: 1rem 0;
+  padding: 2rem 0; /* Aumentado el padding vertical */
   display: none; /* Oculto por defecto */
   opacity: 0; /* Inicialmente transparente */
   transition: opacity 0.3s ease;
+  height: calc(100vh - 70px); /* Asegurar que ocupe toda la altura disponible */
 }
 
 /* Mostrar el menú cuando está activo */
@@ -598,27 +599,36 @@ const scrollToSection = (sectionId: string) => {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem; /* Aumentado el espacio entre elementos */
 }
 
 .mobile-nav-link {
   display: block;
   color: #1f2937;
   text-decoration: none;
-  font-weight: 500;
-  padding: 1rem 1rem;
-  border-radius: 0.5rem;
+  font-weight: 600; /* Texto más grueso */
+  padding: 1.25rem 1.5rem; /* Aumentado el padding */
+  border-radius: 0.75rem; /* Bordes más redondeados */
   cursor: pointer;
   transition: all 0.2s ease;
   width: 100%;
   text-align: left;
-  background: none;
-  border: none;
-  font-size: 1rem;
+  background: rgba(139, 92, 246, 0.05); /* Fondo sutil */
+  border: 1px solid rgba(139, 92, 246, 0.1); /* Borde sutil */
+  font-size: 1.1rem; /* Texto más grande */
+  line-height: 1.5; /* Mejor interlineado */
+  letter-spacing: 0.3px; /* Mejor legibilidad */
 }
 
 .mobile-nav-link:active {
+  background-color: rgba(139, 92, 246, 0.15);
+  transform: scale(0.98); /* Efecto de presión */
+}
+
+.mobile-nav-link:hover {
   background-color: rgba(139, 92, 246, 0.1);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .mobile-nav-link:hover {
