@@ -593,6 +593,10 @@ const scrollToSection = (sectionId: string) => {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding: 1rem 0;
+  display: block !important; /* Forzar visibilidad */
+  opacity: 1 !important; /* Forzar opacidad */
+  transform: none !important; /* Anulación de transformaciones */
 }
 
 /* Transición para el menú móvil */
@@ -610,7 +614,11 @@ const scrollToSection = (sectionId: string) => {
 .mobile-nav-menu {
   list-style: none;
   margin: 0;
-  padding: 1rem 2rem;
+  padding: 0 1.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .mobile-nav-link {
@@ -618,9 +626,19 @@ const scrollToSection = (sectionId: string) => {
   color: #1f2937;
   text-decoration: none;
   font-weight: 500;
-  padding: 1rem 0;
-  border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+  padding: 1rem 1rem;
+  border-radius: 0.5rem;
   cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  font-size: 1rem;
+}
+
+.mobile-nav-link:active {
+  background-color: rgba(139, 92, 246, 0.1);
 }
 
 .mobile-nav-link:hover {
@@ -634,14 +652,12 @@ const scrollToSection = (sectionId: string) => {
 
   .mobile-menu-btn {
     display: block;
-  }
-
-  .mobile-menu {
-    display: block;
+    z-index: 1001;
   }
 
   .nav-container {
     padding: 1rem;
+    position: relative;
   }
 }
 </style>
