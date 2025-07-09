@@ -270,7 +270,7 @@ const formatPrice = (price: number): string => {
 </script>
 
 <template>
-  <section class="gallery-section">
+  <section id="galeria" class="gallery-section">
     <div v-if="loading" class="loading-container">
       Cargando productos destacados...
     </div>
