@@ -61,35 +61,19 @@ const toggleMenu = (event?: Event) => {
   // Bloquear/desbloquear el scroll del body cuando el menú está abierto
   if (isMenuOpen.value) {
     document.body.style.overflow = 'hidden';
-    // Agregar evento de clic para cerrar el menú al tocar fuera
-    setTimeout(() => {
-      document.addEventListener('click', handleClickOutside, false);
-    }, 0);
   } else {
     document.body.style.overflow = '';
-    document.removeEventListener('click', handleClickOutside, false);
-  }
-}
-
-const handleClickOutside = (event: Event) => {
-  const menu = document.querySelector('.mobile-menu');
-  const button = document.querySelector('.mobile-menu-btn');
-  
-  if (menu && !menu.contains(event.target as Node) && 
-      button && !button.contains(event.target as Node)) {
-    toggleMenu();
   }
 }
 
 const handleMobileLinkClick = (sectionId: string) => {
-  // Cerrar el menú
-  if (isMenuOpen.value) {
-    toggleMenu();
+  toggleMenu();
+  // Desplazarse a la sección después de que el menú se cierre
+  if (!isMenuOpen.value) {
+    setTimeout(() => {
+      scrollToSection(sectionId);
+    }, 300);
   }
-  // Desplazarse a la sección
-  setTimeout(() => {
-    scrollToSection(sectionId);
-  }, 300); // Esperar a que termine la animación de cierre
 }
 
 const scrollToSection = (sectionId: string) => {
@@ -129,17 +113,15 @@ const scrollToSection = (sectionId: string) => {
       </div>
 
       <!-- Mobile Menu -->
-      <transition name="slide-down">
-        <div v-if="isMenuOpen" class="mobile-menu" @click.stop>
-          <ul class="mobile-nav-menu">
-            <li><a @click="handleMobileLinkClick('inicio')" class="mobile-nav-link">Inicio</a></li>
-            <li><a @click="handleMobileLinkClick('nosotros')" class="mobile-nav-link">Nosotros</a></li>
-            <li><a @click="handleMobileLinkClick('galeria')" class="mobile-nav-link">Galería</a></li>
-            <li><a @click="handleMobileLinkClick('contacto')" class="mobile-nav-link">Contacto</a></li>
-            <li><a @click="handleMobileLinkClick('ubicacion')" class="mobile-nav-link">Ubicación</a></li>
-          </ul>
-        </div>
-      </transition>
+      <div v-show="isMenuOpen" class="mobile-menu" @click.stop>
+        <ul class="mobile-nav-menu">
+          <li><a @click="handleMobileLinkClick('inicio')" class="mobile-nav-link">Inicio</a></li>
+          <li><a @click="handleMobileLinkClick('nosotros')" class="mobile-nav-link">Nosotros</a></li>
+          <li><a @click="handleMobileLinkClick('galeria')" class="mobile-nav-link">Galería</a></li>
+          <li><a @click="handleMobileLinkClick('contacto')" class="mobile-nav-link">Contacto</a></li>
+          <li><a @click="handleMobileLinkClick('ubicacion')" class="mobile-nav-link">Ubicación</a></li>
+        </ul>
+      </div>
     </nav>
   </header>
 
@@ -594,21 +576,18 @@ const scrollToSection = (sectionId: string) => {
   -webkit-overflow-scrolling: touch;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   padding: 1rem 0;
-  display: block !important; /* Forzar visibilidad */
-  opacity: 1 !important; /* Forzar opacidad */
-  transform: none !important; /* Anulación de transformaciones */
-}
-
-/* Transición para el menú móvil */
-.slide-down-enter-active,
-.slide-down-leave-active {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.slide-down-enter-from,
-.slide-down-leave-to {
-  transform: translateY(-20px);
+/* Estado inicial y final de la animación */
+.mobile-menu {
+  transform: translateY(-100%);
   opacity: 0;
+}
+
+.mobile-menu.v-show {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .mobile-nav-menu {
